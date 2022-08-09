@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// top-bottom 방식(재귀)
+
 int d[1000001];
 
 int cal(int n){
