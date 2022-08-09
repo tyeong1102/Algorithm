@@ -1,6 +1,8 @@
 #include <iostream>
 using namespace std;
 
+// bottom-up 방식(for문)
+
 int main(){
     int n;
     int d[1000001];
