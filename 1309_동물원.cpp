@@ -1,6 +1,10 @@
 #include <iostream>
 using namespace std;
 
+/*
+1줄 1줄 추가해간다고 생각했을 때 n번째 줄이 추가되어 비어있다고하면, n-1번째까지의 칸을 채우는 방법과 같다고 볼 수 있다.
+*/
+
 int d[100001][3];
 
 int main(){
