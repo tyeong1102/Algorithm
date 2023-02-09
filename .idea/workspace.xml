@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="3d1334dd-1e78-49c1-a66c-d87797558aa7" name="Changes" comment="git ignore">
-      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -60,6 +60,7 @@
       <workItem from="1675911648070" duration="30000" />
       <workItem from="1675911906612" duration="72000" />
       <workItem from="1675912091922" duration="31000" />
+      <workItem from="1675912268526" duration="13000" />
     </task>
     <task id="LOCAL-00001" summary="git ignore">
       <created>1675911940307</created>
