@@ -1,11 +1,11 @@
 class Solution {
-    public int solution(int n) {
-        int answer = 0;
+    public String solution(int num) {
+        String answer;
 
-        for (int i = 1; i <= n; i++) {
-            if (n % i == 0) {
-                answer += i;
-            }
+        if (num % 2 == 0) {
+            answer = "Even";
+        } else {
+            answer = "Odd";
         }
 
         return answer;
