@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.Stack;
 
-public class BOJ_10828 {
+public class Main {
 
     public static void main(String[] args) throws IOException {
 
