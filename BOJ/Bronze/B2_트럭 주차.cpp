@@ -20,6 +20,7 @@ int main(){
         if(num == 1) sum += A;
         else if(num == 2) sum += 2 * B;
         else if(num == 3) sum += 3 * C;
+        else sum += 0;
     }
 
     cout << sum << '\n';
