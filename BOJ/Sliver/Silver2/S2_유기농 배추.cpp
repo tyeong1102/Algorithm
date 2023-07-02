@@ -1,29 +1,53 @@
 /*
-	변수 하나하나가 20억이 넘는 큰 수이기 때문에 그냥 20억씩 곱하면 long long의 범위를 벗어나는 큰 수가 된다.
-	따라서 2^8 = 2^4 * 2^4이듯 b를 반으로 나눠서 소분해서 계산하고 한번 더 곱해준 다음 %c를 해준다.
-	그런데 홀수일 경우에는 누락되는 수가 하나 생기기 때문에 a를 한번 더 곱해주고 %c를 해주는 것으로 한다.
+	fill()로 배열의 초기화를 해주어야 한다. 그렇지 않으면 틀렸습니다 됨.
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-long long a, b, c;
+int dy[4] = {-1, 0, 1, 0};
+int dx[4] = {0, 1, 0, -1};
 
-long long go(long long a, long long b){
-	if(b == 1) return a % c; // 재귀함수는 기저사례
-	long long ret = go(a, b / 2); // 반만 곱함
-	ret = (ret * ret) % c; // 한번 더 곱해줌
-	if(b % 2 == 1) ret = (ret * a) % c; // 홀수일 경우 한번 더 곱함
-	return ret;
+int t, m, n, k, y, x;
+int a[51][51], visited[51][51];
+
+void dfs(int y, int x) {
+	visited[y][x] = 1;
+	for(int i = 0; i < 4; i++) {
+		int ny = y + dy[i];
+		int nx = x + dx[i];
+		if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+		if(a[ny][nx] == 1 && !visited[ny][nx]) {
+			dfs(ny, nx);
+		}
+	}
+	return;
 }
 
-int main(){
-    ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-    cout.tie(NULL);
+int main() {
+	cin >> t;
 
-	cin >> a >> b >> c;
+	for(int i = 0; i < t; i++) {
+		// 초기화 과정이 필요함
+		fill(&a[0][0], &a[0][0] + 51 * 51, 0);
+        fill(&visited[0][0], &visited[0][0] + 51 * 51, 0);
 
-	cout <<  go(a, b) << '\n';
-    return 0;
+		int cnt = 0;
+		cin >> m >> n >> k;
+
+		for(int j = 0; j < k; j++) {
+			cin >> x >> y;
+			a[y][x] = 1;
+		}
+
+		for(int j = 0; j < n; j++) {
+			for(int k = 0; k < m; k++) {
+				if(a[j][k] == 1 && !visited[j][k]){ // 해당 칸이 1이고 방문하지 않았다면
+					dfs(j, k); // dfs
+					cnt++; // 뻗어나가는게 끝나면 +1
+				}
+			} // 다시 다음 시작점을 찾음 -> 반복
+		}
+		cout << cnt << '\n';
+	}
 }
