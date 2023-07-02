@@ -1,29 +1,45 @@
 /*
-	변수 하나하나가 20억이 넘는 큰 수이기 때문에 그냥 20억씩 곱하면 long long의 범위를 벗어나는 큰 수가 된다.
-	따라서 2^8 = 2^4 * 2^4이듯 b를 반으로 나눠서 소분해서 계산하고 한번 더 곱해준 다음 %c를 해준다.
-	그런데 홀수일 경우에는 누락되는 수가 하나 생기기 때문에 a를 한번 더 곱해주고 %c를 해주는 것으로 한다.
+	최소 칸 수를 구하는 문제이기 때문에 바로 dfs가 떠올라야한다.
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-long long a, b, c;
+int dy[4] = {-1, 0, 1, 0};
+int dx[4] = {0, 1, 0, -1};
 
-long long go(long long a, long long b){
-	if(b == 1) return a % c; // 재귀함수는 기저사례
-	long long ret = go(a, b / 2); // 반만 곱함
-	ret = (ret * ret) % c; // 한번 더 곱해줌
-	if(b % 2 == 1) ret = (ret * a) % c; // 홀수일 경우 한번 더 곱함
-	return ret;
-}
+int n, m, y, x;
+int a[104][104], visited[104][104];
 
-int main(){
-    ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-    cout.tie(NULL);
+int main() {
+	scanf("%d" "%d", &n, &m);
 
-	cin >> a >> b >> c;
+	for(int i = 0; i < n; i++) {
+		for(int j = 0; j < m; j++) {
+			scanf("%1d", &a[i][j]);
+		}
+	}
 
-	cout <<  go(a, b) << '\n';
-    return 0;
+	queue<pair<int, int>> q; // y, x 좌표이기 때문에 pair사용
+	visited[0][0] = 1; // 첫 번째 스타트 지점에서 visited 설정
+	q.push({0, 0}); // 그 다음에 push
+
+	while(q.size()) {
+		tie(y, x) = q.front();
+		q.pop();
+
+		for(int i = 0; i < 4; i++) {
+			// 4방향 탐색
+			int ny = y + dy[i];
+			int nx = x + dx[i];
+			// 맵의 범위를 벗어났는지 체크, 마지막은 문제에서 0을 건널 수 없다고 했기 때문에 설정
+			if(ny < 0 || ny >= n || nx < 0 || nx >= m || a[ny][nx] == 0) continue; 
+			if(visited[ny][nx]) continue; // 방문 확인
+			visited[ny][nx] = visited[y][x] + 1;
+			q.push({ny, nx});
+		}
+	}
+
+	printf("%d", visited[n - 1][m -  1]);
+	return 0;
 }
