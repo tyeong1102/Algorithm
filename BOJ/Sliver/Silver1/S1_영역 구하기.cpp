@@ -1,29 +1,60 @@
-/*
-	변수 하나하나가 20억이 넘는 큰 수이기 때문에 그냥 20억씩 곱하면 long long의 범위를 벗어나는 큰 수가 된다.
-	따라서 2^8 = 2^4 * 2^4이듯 b를 반으로 나눠서 소분해서 계산하고 한번 더 곱해준 다음 %c를 해준다.
-	그런데 홀수일 경우에는 누락되는 수가 하나 생기기 때문에 a를 한번 더 곱해주고 %c를 해주는 것으로 한다.
-*/
-
-#include <bits/stdc++.h>
+#include<bits/stdc++.h> 
 using namespace std;
 
-long long a, b, c;
+#define y1 aaaa // bits/stdc++.h에 y1이 이미 전역변수로 생성되어 있어서 따로 정의해야 한다.....
 
-long long go(long long a, long long b){
-	if(b == 1) return a % c; // 재귀함수는 기저사례
-	long long ret = go(a, b / 2); // 반만 곱함
-	ret = (ret * ret) % c; // 한번 더 곱해줌
-	if(b % 2 == 1) ret = (ret * a) % c; // 홀수일 경우 한번 더 곱함
-	return ret;
+int m, n, k, x1, x2, y1, y2;
+int a[104][104], visited[104][104];
+
+const int dy[4] = {-1, 0, 1, 0};
+const int dx[4] = {0, 1, 0, -1};
+vector<int> ans; 
+
+int dfs(int y, int x) {
+    visited[y][x] = 1; 
+    int ans = 1; // 시작 노드는 방문한 상태이기 떄문에 1
+
+    for(int i = 0; i < 4; i++) {
+        int ny = y + dy[i]; 
+        int nx = x + dx[i]; 
+        if(ny < 0 || ny >= m || nx < 0 || nx >= n || visited[ny][nx] == 1) continue; // 범위 벗어나거나 방문된 상태
+		if(a[ny][nx] == 1) continue; // 이미 색칠된 구간
+        ans += dfs(ny, nx);
+    } 
+
+    return ans; 
 }
 
-int main(){
-    ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+int main() { 
+    ios_base::sync_with_stdio(false);  
+    cin.tie(NULL);
     cout.tie(NULL);
 
-	cin >> a >> b >> c;
+    cin >> m >> n >> k; 
 
-	cout <<  go(a, b) << '\n';
-    return 0;
+    for(int i = 0; i < k; i++) {
+        cin >> x1 >> y1 >> x2 >> y2; 
+
+        for(int x = x1; x < x2; x++) {
+            for(int y = y1; y < y2; y++) {
+                a[y][x] = 1; // 사각형 내부 색칠
+            }
+        }
+    }
+
+    for(int i = 0; i < m; i++) {
+        for(int j = 0; j < n; j++) {
+            if(a[i][j] != 1 & visited[i][j] == 0) { 
+                ans.push_back(dfs(i, j)); // 정렬을 위해 벡터에 삽입
+            }
+        }
+    }
+
+    sort(ans.begin(), ans.end()); // 오름차순 정렬
+
+    cout << ans.size() << "\n";
+    for(int a : ans) cout << a << " "; 
+
+    return 0; 
 }
+ 
