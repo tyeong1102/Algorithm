@@ -1,29 +1,47 @@
-/*
-	변수 하나하나가 20억이 넘는 큰 수이기 때문에 그냥 20억씩 곱하면 long long의 범위를 벗어나는 큰 수가 된다.
-	따라서 2^8 = 2^4 * 2^4이듯 b를 반으로 나눠서 소분해서 계산하고 한번 더 곱해준 다음 %c를 해준다.
-	그런데 홀수일 경우에는 누락되는 수가 하나 생기기 때문에 a를 한번 더 곱해주고 %c를 해주는 것으로 한다.
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
-long long a, b, c;
+int n;
+string s;
+char a[101][101];
 
-long long go(long long a, long long b){
-	if(b == 1) return a % c; // 재귀함수는 기저사례
-	long long ret = go(a, b / 2); // 반만 곱함
-	ret = (ret * ret) % c; // 한번 더 곱해줌
-	if(b % 2 == 1) ret = (ret * a) % c; // 홀수일 경우 한번 더 곱함
-	return ret;
+string quard(int y, int x, int size) {
+    if(size == 1) return string(1, a[y][x]); // 재귀함수는 기저사례 필수
+
+    char b = a[y][x];
+    string ans = "";
+
+    for(int i = y; i < y + size; i++) {
+        for(int j = x; j < x + size; j++) {
+            if(b != a[i][j]) {
+                ans += '(';
+                ans += quard(y, x, size / 2);
+                ans += quard(y, x + size / 2, size / 2);
+                ans += quard(y + size / 2, x, size / 2);
+                ans += quard(y + size / 2, x + size / 2, size / 2);
+                ans += ')';
+                return ans;
+            }
+        }
+    }
+    return string(1, a[y][x]);
 }
 
-int main(){
+
+int main() {
     ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
+    cin.tie(NULL);
     cout.tie(NULL);
 
-	cin >> a >> b >> c;
+    cin >> n;
+    
+    for(int i = 0; i < n; i++) {
+        cin >> s;
+        for(int j = 0; j < n; j++) {
+            a[i][j] = s[j];
+        }
+    }
 
-	cout <<  go(a, b) << '\n';
+    cout << quard(0, 0, n) << '\n';
     return 0;
 }
