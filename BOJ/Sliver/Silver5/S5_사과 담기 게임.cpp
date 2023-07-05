@@ -1,28 +1,28 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, cnt;
-string s;
+int n, m, j, pos, start, finish, ans;
 
-int main(){
-    ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-    cout.tie(NULL);
+int main() {
+    cin >> n >> m >> j;
 
-	cin >> n;
-	for(int i = 0; i < n; i++){
-		cin >> s;
-		stack<char> st;
-		
-		for(char c : s){
-			if(!st.empty() && st.top() == c) st.pop();
-			else st.push(c);
-		}
+    start = 1;
 
-		if(st.empty()) cnt++;
-	}
+    while(j--) {
+        finish = start + m - 1;
+        cin >> pos;
 
-	cout << cnt << '\n';
+        if(pos >= start && pos <= finish) continue;
+        else {
+            if(pos < start) {
+                ans += start - pos;
+                start = pos;
+            } else {
+                start += pos - finish;
+                ans += pos - finish;
+            }
+        }
+    }
 
-    return 0;
+    cout << ans << '\n';
 }
