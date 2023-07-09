@@ -23,7 +23,8 @@ int main() {
 	cin >> n >> c;
     
 	for(int i = 0; i < n; i++) {
-		cin >> a[i];mp[a[i]]++;
+		cin >> a[i];
+        mp[a[i]]++;
 		if(mp_first[a[i]] == 0) mp_first[a[i]] = i + 1; 
 	} 
     
