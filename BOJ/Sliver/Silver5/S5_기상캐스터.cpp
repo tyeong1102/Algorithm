@@ -1,28 +1,39 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m, j, pos, start, finish, ans;
+int h, w, cnt;
+int a[101][101];
+string s;
 
 int main() {
-    cin >> n >> m >> j;
+    cin >> h >> w;
 
-    start = 1;
+    for(int i = 0; i < h; i++) {
+        cin >> s;
 
-    while(j--) {
-        finish = start + m - 1;
-        cin >> pos;
+        for(int j = 0; j < w; j++) {
+            if(s[j] == '.') a[i][j] = -1;
+            else a[i][j] = 0;
+        }
+    }
 
-        if(pos >= start && pos <= finish) continue;
-        else {
-            if(pos < start) {
-                ans += start - pos;
-                start = pos;
-            } else {
-                start += pos - finish;
-                ans += pos - finish;
+    for(int i = 0; i < h; i++) {
+        for(int j = 0; j < w; j++) {
+            if(a[i][j] == 0) {
+                cnt = 1;
+                while(a[i][j + 1] == -1) {
+                    a[i][j + 1] = cnt++;
+                    j++;
+                }
+                
             }
         }
     }
 
-    cout << ans << '\n';
+    for(int i = 0; i < h; i++) {
+        for(int j = 0; j < w; j++) {
+            cout << a[i][j] << " ";
+        }
+        cout << '\n';
+    }
 }
