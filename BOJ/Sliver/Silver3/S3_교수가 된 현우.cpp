@@ -1,43 +1,30 @@
+/*
+    2의 배수보다 5의 배수가 항상 더 적기 때문에, 5의 배수의 개수만 세어주면 된다.
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
-typedef long long ll;
-const ll INF = 1e18;   
-int n, c, a[1004];
-
-vector<pair<int, int>> v; 
-map<int, int> mp, mp_first; 
-
-bool cmp(pair<int,int> a, pair<int, int> b) {
-	if(a.first == b.first) {
-		return mp_first[a.second] < mp_first[b.second];
-	}
-	return a.first > b.first;
-}
+int t, n, cnt, five;
 
 int main() {
-	ios_base::sync_with_stdio(false);
-	cin.tie(NULL); 
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
     cout.tie(NULL);
-    
-	cin >> n >> c;
-    
-	for(int i = 0; i < n; i++) {
-		cin >> a[i];mp[a[i]]++;
-		if(mp_first[a[i]] == 0) mp_first[a[i]] = i + 1; 
-	} 
-    
-	for(auto it : mp) {
-		v.push_back({it.second, it.first});
-	}
-    
-	sort(v.begin(), v.end(), cmp);
-    
-	for(auto i : v) {
-		for(int j = 0; j < i.first; j++) {
-			cout << i.second << " ";
-		}
-	} 
-	 
-	return 0;
+
+    cin >> t;
+
+    for(int i = 0; i < t; i++) {
+        cin >> n;
+        
+        cnt = 0;
+        five = 5;
+
+        while(five <= n) {
+            cnt += n / five;
+            five *= 5;
+        }
+
+        cout << cnt << '\n';
+    }
 }
