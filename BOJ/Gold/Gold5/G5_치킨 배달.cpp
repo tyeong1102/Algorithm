@@ -1,48 +1,59 @@
 /*
-    트리는 반드시 루트노드부터 탐색.
+    조합의 가능성 외워두자.
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m, node, root;
-vector<int> adj[54];
+int n, m, a[54][54], ans = 987654321;
+vector<vector<int>> chickenList;
+vector<pair<int, int>> _home, chicken;
 
-int dfs(int u) {
-    int ans = 0;
-    int cnt = 0;
-
-    for(int v : adj[u]) {       
-        if(v == node) continue; // 해당 부분 탐색 건너뜀 (삭제의 역할)
-        ans += dfs(v);
-        cnt++;
+void combi(int start, vector<int> v) {
+    if(v.size() == m) { 
+        chickenList.push_back(v);
+        return;
     }
 
-    if(cnt == 0) return 1;
-    
-    return ans;
+    for(int i = start + 1; i < chicken.size(); i++) {
+        v.push_back(i);
+        combi(i, v);
+        v.pop_back();
+    }
+
+    return;
 }
 
-int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    cin >> n;
+int main(){
+    cin >> n >> m;
 
     for(int i = 0; i < n; i++) {
-        cin >> m;
-
-        if(m == -1) root = i;
-        else adj[m].push_back(i);
+        for(int j = 0; j < n; j++) {
+            cin >> a[i][j];
+            if(a[i][j] == 1) _home.push_back({i, j});
+            if(a[i][j] == 2) chicken.push_back({i, j});
+        }
     }
 
-    cin >> node;
+    vector<int> v;
+    combi(-1, v);
 
-    if(node == root) {
-        cout << 0 << '\n';
-        return 0;
+    for(vector<int> cList : chickenList) {
+        int cnt = 0;
+
+        for(pair<int, int> home : _home) {
+            int _min = 987654321;
+
+            for(int ch : cList) {
+                int _dist = abs(home.first - chicken[ch].first) + abs(home.second - chicken[ch].second);
+                _min = min(_min, _dist);
+            }
+            cnt += _min;
+        }
+
+        ans = min(ans, cnt);
     }
 
-    cout << dfs(root) << '\n';
+    cout << ans << "\n";
+    return 0;
 }
