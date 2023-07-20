@@ -1,48 +1,54 @@
-/*
-    트리는 반드시 루트노드부터 탐색.
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, m, node, root;
-vector<int> adj[54];
+const int dy[] = {-1, 0, 1, 0};
+const int dx[] = {0, 1, 0, -1};
 
-int dfs(int u) {
-    int ans = 0;
-    int cnt = 0;
+int n, m, ans, visited[54][54];
+char a[54][54];
 
-    for(int v : adj[u]) {       
-        if(v == node) continue; // 해당 부분 탐색 건너뜀 (삭제의 역할)
-        ans += dfs(v);
-        cnt++;
+void bfs(int y, int x) {
+    memset(visited, 0, sizeof(visited));
+    queue<pair<int, int>> q;
+    visited[y][x] = 1;
+    q.push({y, x});
+
+    while(q.size()){
+        tie(y, x) = q.front();
+        q.pop();
+
+        for(int i = 0; i < 4; i++) {
+            int ny = y + dy[i];
+            int nx = x + dx[i];
+
+            if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
+            if(visited[ny][nx]) continue;
+            if(a[ny][nx] == 'W') continue;
+
+            visited[ny][nx] = visited[y][x] + 1;
+            q.push({ny, nx});
+
+            ans = max(ans, visited[ny][nx]);
+        }
     }
-
-    if(cnt == 0) return 1;
     
-    return ans;
+    return;
 }
 
 int main() {
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-
-    cin >> n;
+    cin >> n >> m;
 
     for(int i = 0; i < n; i++) {
-        cin >> m;
-
-        if(m == -1) root = i;
-        else adj[m].push_back(i);
+        for(int j = 0; j < m; j++) {
+            cin >> a[i][j];
+        }
     }
 
-    cin >> node;
-
-    if(node == root) {
-        cout << 0 << '\n';
-        return 0;
+    for(int i = 0; i < n; i++) {
+        for(int j = 0; j < m; j++) {
+            if(a[i][j] == 'L') bfs(i, j);
+        }
     }
 
-    cout << dfs(root) << '\n';
+    cout << ans - 1 << '\n';
 }
