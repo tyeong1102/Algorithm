@@ -1,67 +1,66 @@
-/* 
-    단순히 탐색만 하는 것이기 때문에 dfs, bfs 다 상관없다.
+/*
+    3개의 정점을 가진 그래프로 판단해야 한다.
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int dy[] = {-1, 0, 1, 0};
-int dx[] = {0, 1, 0, -1};
+int scv[64][64][64], a[3];
+int n;
 
-int n, m, cnt, cnt2;
-int a[104][104], visited[104][104];
-vector<pair<int, int>> v;
+int mu[6][3] = {
+    {9, 3, 1},
+    {9, 1, 3},
+    {3, 1, 9},
+    {3, 9, 1},
+    {1, 3, 9},
+    {1, 9, 3}
+};
 
-void dfs(int y, int x) {
-    visited[y][x] = 1;
-    if(a[y][x] == 1) {
-        v.push_back({y, x}); // 녹을 예정인 곳 저장
-        return;
+struct A {
+    int a, b, c;
+};
+
+queue<A> q;
+
+int solve(int a, int b, int c) {
+    scv[a][b][c] = 1;
+    q.push({a, b, c});
+
+    while(q.size()) {
+        int a = q.front().a;
+        int b = q.front().b;
+        int c = q.front().c;
+
+        q.pop();
+
+        if(scv[0][0][0]) break;
+
+        for(int i = 0; i < 6; i++) {
+            // 음수를 막아주는 역할, 인덱스에는 음수가 들어갈 수 없기 때문
+            int na = max(0, a - mu[i][0]);
+            int nb = max(0, b - mu[i][1]);
+            int nc = max(0, c - mu[i][2]);
+
+            if(scv[na][nb][nc]) continue;
+
+            scv[na][nb][nc] = scv[a][b][c] + 1;
+            q.push({na, nb, nc});
+        }
     }
 
-    for(int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-        if(visited[ny][nx]) continue;
-        dfs(ny, nx);
-    }
-    return;
+    return scv[0][0][0] - 1;
 }
 
 int main() {
-    cin >> n >> m;
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    cout.tie(NULL);
 
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < m; j++) {
-            cin >> a[i][j];
-        }
-    }
+    cin >> n;
 
-    while(true) {
-        cnt2 = 0;
-        fill(&visited[0][0], &visited[0][0] + 104 * 104, 0);
-        v.clear();
+    for(int i = 0; i < n; i++) cin >> a[i];
 
-        dfs(0, 0);
-
-        for(pair<int, int> b : v) {
-            cnt2++;
-            a[b.first][b.second] = 0;
-        }
-
-        bool flag = 0;  
-
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(a[i][j] != 0) flag = 1;
-            }
-        }
-
-        cnt++;
-        if(!flag) break; // 더 이상 녹을 치즈가 없을 경우
-    }
-
-    cout << cnt << '\n';
-    cout << cnt2 << '\n';
+    cout << solve(a[0], a[1], a[2]) << '\n';
+    return 0;
 }
