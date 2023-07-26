@@ -1,67 +1,50 @@
-/* 
-    단순히 탐색만 하는 것이기 때문에 dfs, bfs 다 상관없다.
+/*
+    기존의 4방향 bfs와는 달리 3방향 bfs였다.
+    처음에 기저 사례를 만들어주기는 했으나 return 0으로만 지정해주고 출력값을 지정하지 않아 틀렸었다.
+    코드에는 10만으로 배열을 설정 하였지만 수빈이가 2배 이동을 할 수 있기 때문에 20만으로 설정해주는 것이 좋다.
 */
 
 #include <bits/stdc++.h>
 using namespace std;
 
-int dy[] = {-1, 0, 1, 0};
-int dx[] = {0, 1, 0, -1};
-
-int n, m, cnt, cnt2;
-int a[104][104], visited[104][104];
-vector<pair<int, int>> v;
-
-void dfs(int y, int x) {
-    visited[y][x] = 1;
-    if(a[y][x] == 1) {
-        v.push_back({y, x}); // 녹을 예정인 곳 저장
-        return;
-    }
-
-    for(int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-        if(visited[ny][nx]) continue;
-        dfs(ny, nx);
-    }
-    return;
-}
+int n, k;
+int visited[100004];
+int cnt[100004];
 
 int main() {
-    cin >> n >> m;
+    cin >> n >> k;
 
-    for(int i = 0; i < n; i++) {
-        for(int j = 0; j < m; j++) {
-            cin >> a[i][j];
-        }
+    if(n == k) { // 시작과 목표점이 같을 때
+        cout << 0 << '\n';
+        cout << 1 << '\n';
+        return 0;
     }
 
-    while(true) {
-        cnt2 = 0;
-        fill(&visited[0][0], &visited[0][0] + 104 * 104, 0);
-        v.clear();
+    // 시작점 도달
+    visited[n] = 1;
+    cnt[n] = 1;
 
-        dfs(0, 0);
+    queue<int> q;
+    q.push(n); // 시작점 큐에 삽입
 
-        for(pair<int, int> b : v) {
-            cnt2++;
-            a[b.first][b.second] = 0;
-        }
+    while(!q.empty()) {
+        int here = q.front();
+        q.pop();
 
-        bool flag = 0;  
-
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(a[i][j] != 0) flag = 1;
+        for(int next : {here - 1, here + 1, here * 2}) { // 현재 위치에서 이동 가능한 위치 반복
+            if(0 <= next && next <= 100000) { // 최소, 최대 범위 사이에 있어야함
+                if(!visited[next]) {
+                    q.push(next);
+                    visited[next] = visited[here] + 1; // 다음 위치 도달 시간을 현재 위치 시간 + 1
+                    cnt[next] += cnt[here];
+                } else if(visited[next] == visited[here] + 1) { // 이미 방문한 곳이지만, 최소 시간이라면
+                    cnt[next] += cnt[here]; // 다음 위치에 도달하는 방법의 수 업데이트
+                }
             }
         }
-
-        cnt++;
-        if(!flag) break; // 더 이상 녹을 치즈가 없을 경우
     }
 
-    cout << cnt << '\n';
-    cout << cnt2 << '\n';
+    cout << visited[k] - 1 << '\n';
+    cout << cnt[k] << '\n';
+    return 0;
 }
