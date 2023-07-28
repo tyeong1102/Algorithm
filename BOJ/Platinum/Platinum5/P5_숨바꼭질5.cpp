@@ -1,48 +1,62 @@
+/*
+    수빈이의 홀짝 위치 파악이 중요하였다.
+    수빈이는 앞뒤로 1칸을 이동할 수 있기 때문에, 만약 한 지점이 있을 때, 수빈이는 5초에 도착하고 동생은 7초에 도착한다면
+    +1후 -1을 해서 다시 돌아오면 동생을 만날 수 있다. 
+*/
+
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, ans = -987654321;
-string s;
-vector<int> num;
-vector<char> oper;
-
-int operation(char a, int b, int c) {
-    if(a == '+') return b + c;
-    if(a == '-') return b - c;
-    if(a == '*') return b * c;
-}
-
-void calc(int here, int _num) {
-    // 완전 탐색은 기저 사례를 먼저 만들자
-    if(here == num.size() - 1) { // num size 보다 커지기 직전
-        ans = max(ans, _num); // max 값
-        return;
-    }
-
-    calc(here + 1, operation(oper[here], _num, num[here + 1])); // 1번 인덱스에 있는 연산자와 양 옆의 숫자 계산
-
-    if(here + 2 <= num.size() - 1) { // 아직 연산이 더 있다면
-        int temp = operation(oper[here + 1], num[here + 1], num[here + 2]); // 뒷 부분 먼저 계산
-        calc(here + 2, operation(oper[here], _num, temp)); // 2번 인덱스 먼저 계산한 후 1번 인덱스 계산
-    }
-    return;
-}
+const int MAX = 500000;
+int n, k, over, sec = 1;
+int visited[2][MAX + 4];
 
 int main() {
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     cout.tie(NULL);
 
-    cin >> n;
-    cin >> s;
+    cin >> n >> k;
 
-    for(int i = 0; i < n; i++) {
-        if(i % 2 == 0) num.push_back(s[i] - '0'); // 숫자 저장
-        else oper.push_back(s[i]); // 기호 저장
+    if(n == k) {
+        cout << 0 << '\n';
+        return 0;
     }
 
-    calc(0, num[0]);
+    queue<int> q;
+    visited[0][n] = 1;
+    q.push(n);
 
-    cout << ans << '\n';
+    while(q.size()) {
+        k += sec; // 동생의 위치
+
+        if(k > MAX) break;
+        if(visited[sec % 2][k]) {
+            over = true;
+            break;
+        }
+        
+        int qSize = q.size();
+        for(int i = 0; i < qSize; i++) {
+            int x = q.front();
+            q.pop();
+            
+            for(int nx : {x - 1, x + 1, x * 2}) {
+                if(nx < 0 || nx > MAX || visited[sec % 2][nx]) continue;
+                visited[sec % 2][nx] = visited[(sec + 1) % 2][x] + 1;
+                if(nx == k) {
+                    over = 1;
+                    break;
+                }
+                q.push(nx);
+            }
+        }
+        if(over) break;
+        sec++;
+    }
+
+    if(over) cout << sec << '\n';
+    else cout << -1 << '\n';
+    
     return 0;
 }
