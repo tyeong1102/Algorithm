@@ -1,67 +1,64 @@
-/* 
-    단순히 탐색만 하는 것이기 때문에 dfs, bfs 다 상관없다.
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
-int dy[] = {-1, 0, 1, 0};
-int dx[] = {0, 1, 0, -1};
+#define y1 aaa
 
-int n, m, cnt, cnt2;
-int a[104][104], visited[104][104];
-vector<pair<int, int>> v;
+int n, m, y1, x1, y2, x2;
+char a[304][304];
+int visited[304][304];
+queue<pair<int, int>> q;
 
-void dfs(int y, int x) {
+const int dy[] = {-1, 0, 1, 0};
+const int dx[] = {0, 1, 0, -1};
+
+void bfs(int y, int x) {
     visited[y][x] = 1;
-    if(a[y][x] == 1) {
-        v.push_back({y, x}); // 녹을 예정인 곳 저장
-        return;
-    }
+    q.push({y, x});
 
-    for(int i = 0; i < 4; i++) {
-        int ny = y + dy[i];
-        int nx = x + dx[i];
-        if(ny < 0 || nx < 0 || ny >= n || nx >= m) continue;
-        if(visited[ny][nx]) continue;
-        dfs(ny, nx);
-    }
-    return;
+    int cnt = 0;
+
+    while(a[y2][x2] != '0') {
+        cnt++; // 레벨 증가
+        queue<pair<int, int>> temp;
+
+        while(q.size()) {
+            tie(y, x) = q.front();
+            q.pop(); // q에는 아무것도 없는 상태
+
+            for(int i = 0; i < 4; i++) {
+                int ny = y + dy[i];
+                int nx = x + dx[i];
+
+                if(ny < 0 || ny > n || nx < 0 || nx > m) continue;
+                if(visited[ny][nx]) continue;
+
+                visited[ny][nx] = cnt;
+
+                if(a[ny][nx] != '0') {
+                    a[ny][nx] = '0';
+                    temp.push({ny, nx}); // 1일 떄는 temp에 push하고 잠시 멈춤
+                } else {
+                    q.push({ny, nx}); // 0일 때는 q에 push하고 계속 탐색
+                }
+            }
+        }
+        q = temp; // temp에 저장된 지점부터 다시 시작
+    } 
 }
 
 int main() {
     cin >> n >> m;
+    cin >> y1 >> x1 >> y2 >> x2;
 
+    y1--, x1--, y2--, x2--;
+    
     for(int i = 0; i < n; i++) {
         for(int j = 0; j < m; j++) {
             cin >> a[i][j];
         }
     }
+    
+    bfs(y1, x1);
 
-    while(true) {
-        cnt2 = 0;
-        fill(&visited[0][0], &visited[0][0] + 104 * 104, 0);
-        v.clear();
-
-        dfs(0, 0);
-
-        for(pair<int, int> b : v) {
-            cnt2++;
-            a[b.first][b.second] = 0;
-        }
-
-        bool flag = 0;  
-
-        for(int i = 0; i < n; i++) {
-            for(int j = 0; j < m; j++) {
-                if(a[i][j] != 0) flag = 1;
-            }
-        }
-
-        cnt++;
-        if(!flag) break; // 더 이상 녹을 치즈가 없을 경우
-    }
-
-    cout << cnt << '\n';
-    cout << cnt2 << '\n';
+    cout << visited[y2][x2] << '\n';
 }
