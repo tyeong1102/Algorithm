@@ -1,29 +1,42 @@
-/*
-	변수 하나하나가 20억이 넘는 큰 수이기 때문에 그냥 20억씩 곱하면 long long의 범위를 벗어나는 큰 수가 된다.
-	따라서 2^8 = 2^4 * 2^4이듯 b를 반으로 나눠서 소분해서 계산하고 한번 더 곱해준 다음 %c를 해준다.
-	그런데 홀수일 경우에는 누락되는 수가 하나 생기기 때문에 a를 한번 더 곱해주고 %c를 해주는 것으로 한다.
-*/
-
 #include <bits/stdc++.h>
 using namespace std;
 
-long long a, b, c;
+const int dy[] = {-1, 0, 1, 0};
+const int dx[] = {0, 1, 0, -1};
+int r, c, k;
+string s;
+int visited[10][10];
+char a[10][10];
 
-long long go(long long a, long long b){
-	if(b == 1) return a % c; // 재귀함수는 기저사례
-	long long ret = go(a, b / 2); // 반만 곱함
-	ret = (ret * ret) % c; // 한번 더 곱해줌
-	if(b % 2 == 1) ret = (ret * a) % c; // 홀수일 경우 한번 더 곱함
-	return ret;
+int dfs(int y, int x) {
+    if(y == 0 && x == c - 1) {
+        if(k == visited[y][x]) return 1;
+        return 0;
+    }
+
+    int ret = 0;
+    
+    for(int i = 0; i < 4; i++) {
+        int ny = y + dy[i];
+        int nx = x + dx[i];
+        if(ny < 0 || ny >= r || nx < 0 || nx >= c || visited[ny][nx] || a[ny][nx] == 'T') continue;
+        visited[ny][nx] = visited[y][x] + 1;
+        ret += dfs(ny, nx);
+        visited[ny][nx] = 0;
+    }
+    return ret;
 }
 
-int main(){
-    ios_base::sync_with_stdio(false);
-	cin.tie(NULL);
-    cout.tie(NULL);
+int main() {
+    cin >> r >> c >> k;
 
-	cin >> a >> b >> c;
+    for(int i = 0; i < r; i++) {
+        cin >> s;
+        for(int j = 0; j < c; j++) {
+            a[i][j] = s[j];
+        }
+    }
 
-	cout <<  go(a, b) << '\n';
-    return 0;
+    visited[r - 1][0] = 1;
+    cout << dfs(r - 1, 0) << '\n';
 }
