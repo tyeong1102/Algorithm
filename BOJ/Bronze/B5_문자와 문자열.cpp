@@ -1,19 +1,12 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-int n, num;
+string s;
+int i;
 
 int main() {
-    cin >> n;
+    cin >> s;
+    cin >> i;
 
-    if(n % 4 == 0) {
-        num = n / 4;
-    } else {
-        num = n / 4 + 1;
-    }
-
-    for(int i = 0; i < num; i++) {
-        cout << "long" << " ";
-    }
-    cout << "int" << '\n';
+    cout << s[i - 1] << '\n';
 }
