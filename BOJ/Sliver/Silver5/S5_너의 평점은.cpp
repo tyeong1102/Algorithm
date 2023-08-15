@@ -1,22 +1,28 @@
-/*
-    우선 문제를 봤을 때 무식하게 풀기를 생각해야 한다.
-    만약 그렇게 생각을 했는데 범위가 너무 커서 시간 복잡도가 커질 것 같으면 dp, 이분탐색, 그리디 등이 생각나야 한다.
-*/
-
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
 using namespace std;
 
-int n; 
+char subject[54], score[6];
+double credit, ret, nScore, cnt;
+int num = 20;
 
 int main() {
-    cin >> n; 
+    while(num--) {
+        cin >> subject >> credit >> score;
 
-    int i = 666; 
+        if(score[0] == 'A') nScore = 4.0;
+        else if(score[0] == 'B') nScore = 3.0;
+        else if(score[0] == 'C') nScore = 2.0;
+        else if(score[0] == 'D') nScore = 1.0;
+        else nScore = 0.0;
 
-    for(;; i++){ // 무한루프
-        if(to_string(i).find("666") != string::npos) n--; 
-        if(n == 0) break;
+        if(score[1] == '+') nScore += 0.5;
+
+        ret += (credit * nScore);
+
+        if(score[0] == 'P') cnt += 0.0;
+        else cnt += credit;
     }
 
-    cout << i << "\n"; 
+    cout << ret / cnt << '\n';
+
 }
