@@ -1,37 +1,49 @@
-    #include <bits/stdc++.h>
-    using namespace std;
+/*
+    int를 사용해도 문제 없지만, 맞왜틀 방지로 1억까지 범위가 커지는 경우 long long 형을 써주도록 하자.
+*/
 
-    int N, dead, cup, ret;
-    vector<pair<int, int>> v;
-    priority_queue<int, vector<int>, greater<int>> pq;
+#include<bits/stdc++.h>
+using namespace std; 
 
-    int main() {
-        ios_base::sync_with_stdio(false);
-        cin.tie(NULL);
-        cout.tie(NULL);
+typedef long long ll;
+ll n, k, ret;
 
-        cin >> N;
+int main(){
+	ios_base::sync_with_stdio(false);
+    cin.tie(NULL); 
+    cout.tie(NULL);
+	
+	cin >> n >> k; 
 
-        for(int i = 0; i < N; i++) {
-            cin >> dead >> cup;
-            v.push_back({dead, cup});
-        }
+	vector<pair<ll,ll>> v(n);
+	vector<ll> vv(k); 
+    priority_queue<ll> pq; 
 
-        sort(v.begin(), v.end());
+	for(int i = 0; i < n; i++) {
+		cin >> v[i].first >> v[i].second; 
+	}
+	for(int i = 0; i < k; i++) {
+        cin >> vv[i];
+    }  
 
-        for(int i = 0; i < N; i++) {
-            pq.push(v[i].second);
+	sort(v.begin(), v.end());
+	sort(vv.begin(), vv.end());
+	
+	
+	int cnt = 0; 
 
-            if(pq.size() > v[i].first) {
-                pq.pop();
-            }
-        }
+	for(int i = 0; i < k; i++) {
+		while(cnt < n && v[cnt].first <= vv[i]) {
+            pq.push(v[cnt].second);
+            cnt++;
+        } 
 
-        while(pq.size()) {
-            ret += pq.top();
+		if(pq.size()) {
+			ret += pq.top(); 
             pq.pop();
-        }
+		}
+	} 
 
-        cout << ret << '\n';
-
-    }
+	cout << ret << "\n"; 
+	return 0;
+}     
