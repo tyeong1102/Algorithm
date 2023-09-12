@@ -5,7 +5,6 @@ int n, x, ret;
 
 int main() {
     cin >> n;
-
     vector<int> v(n);
 
     for(int i = 0; i < n; i++) {
@@ -16,12 +15,12 @@ int main() {
 
     sort(v.begin(), v.end());
 
-    int f = 0, b = n - 1;
+    int s = 0, e = n - 1;
 
-    while(f < b) {
-        if(v[f] + v[b] == x) b--, ret++; 
-        else if(v[f] + v[b] > x) b--;
-        else if(v[f] + v[b] < x) f++;
+    while(s < e) {
+        if(v[s] + v[e] == x) e--, ret++;
+        else if(v[s] + v[e] > x) e--;
+        else if(v[s] + v[e] < x) s++;
     }
 
     cout << ret << '\n';
