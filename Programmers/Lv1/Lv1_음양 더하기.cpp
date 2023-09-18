@@ -3,28 +3,16 @@
 
 using namespace std;
 
-int change(int num) {
-    int cnt = 0;
-    
-    while(num > 0) {
-        if(num % 2 == 1) cnt++;
-        num /= 2;
-    }
-    
-    return cnt;
-}
-
-int solution(int n) {
-    int add = 1;
+int solution(vector<int> absolutes, vector<bool> signs) {
     int answer = 0;
     
-    while(1) {
-        if(change(n) == change(n + add)) {
-            answer = n + add;
-            break;
+    for(int i = 0; i < absolutes.size(); i++) {
+        if(signs[i] == 1) {
+            answer += absolutes[i];
+        } else {
+            answer -= absolutes[i];
         }
-        add++;
-    }
+    } 
     
     return answer;
 }
