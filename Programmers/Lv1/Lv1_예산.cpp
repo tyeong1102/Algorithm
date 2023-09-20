@@ -1,13 +1,18 @@
-#include <string>
-#include <vector>
+#include <bits/stdc++.h>
 
 using namespace std;
 
-int solution(vector<int> a, vector<int> b) {
+int solution(vector<int> d, int budget) {
     int answer = 0;
+    int total = 0;
     
-    for(int i = 0; i < a.size(); i++) {
-        answer += (a[i] * b[i]);
+    sort(d.begin(), d.end());
+    
+    for(int i = 0; i < d.size(); i++) {
+        total += d[i];
+        
+        if(total <= budget) answer++;
+        else break;
     }
     
     return answer;
