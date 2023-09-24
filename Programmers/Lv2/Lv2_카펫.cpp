@@ -3,15 +3,21 @@
 
 using namespace std;
 
-int solution(int n) {
-    int answer = 1;
+vector<int> solution(int brown, int yellow) {
+    vector<int> answer;
     
-    for(int i = 1; i < n; i++) {
-        int sum = 0;
-        int s = i;
-        
-        while(sum < n) sum += s++;
-        if(sum == n) answer++;
+    int sum = brown + yellow;
+    
+    for(int i = 3; i <= sum; i++) {
+        if(sum % i == 0) {
+            int n = sum / i;
+            
+            if((i - 2) * (n - 2) == yellow) {
+                answer.push_back(n);
+                answer.push_back(i);
+                break;
+            }
+        }
     }
     
     return answer;
