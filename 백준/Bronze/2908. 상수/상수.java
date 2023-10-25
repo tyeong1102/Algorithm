@@ -11,8 +11,8 @@ public class Main {
         String s1 = st.nextToken();
         String s2 = st.nextToken();
 
-        StringBuffer sb1 = new StringBuffer(s1);
-        StringBuffer sb2 = new StringBuffer(s2);
+        StringBuilder sb1 = new StringBuilder(s1);
+        StringBuilder sb2 = new StringBuilder(s2);
 
         int a = Integer.parseInt(sb1.reverse().toString());
         int b = Integer.parseInt(sb2.reverse().toString());
