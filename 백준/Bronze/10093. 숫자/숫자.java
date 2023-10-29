@@ -9,8 +9,8 @@ public class Main {
         StringTokenizer st = new StringTokenizer(br.readLine());
         StringBuilder sb = new StringBuilder();
 
-        long a = Integer.parseInt(st.nextToken());
-        long b = Integer.parseInt(st.nextToken());
+        long a = Long.parseLong(st.nextToken());
+        long b = Long.parseLong(st.nextToken());
 
         if(b > a) {
             for (long i = a + 1; i < b; i++) {
@@ -19,7 +19,8 @@ public class Main {
 
             System.out.println(b - a - 1);
             System.out.println(sb);
-        } else if (a > b) {
+        }
+        if (a > b) {
             for (long i = b + 1; i < a; i++) {
                 sb.append(i).append(" ");
             }
