@@ -34,7 +34,7 @@ public class Main {
 
         n = Integer.parseInt(br.readLine());
 
-        arr = new int[n][n];
+        arr = new int[n + 1][n + 1];
 
         int tmp = 0;
         for (int i = 0; i < n; i++) {
