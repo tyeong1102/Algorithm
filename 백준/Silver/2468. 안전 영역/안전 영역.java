@@ -47,7 +47,7 @@ public class Main {
 
         ArrayList<Integer> list = new ArrayList<>();
         for (int t = 1; t <= tmp; t++) {
-            visited = new boolean[n][n];
+            visited = new boolean[n + 1][n + 1];
             cnt = 0;
 
             for (int i = 0; i < n; i++) {
