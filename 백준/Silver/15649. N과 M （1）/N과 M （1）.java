@@ -11,7 +11,7 @@ public class Main {
 
     static StringBuilder sb = new StringBuilder();
 
-    public static void go(int n, int m, int depth) {
+    public static void go(int depth) {
         if (depth == m) {
             for (int num : arr) {
                 sb.append(num).append(' ');
@@ -24,7 +24,7 @@ public class Main {
             if (!visited[i]) {
                 visited[i] = true;
                 arr[depth] = i + 1;
-                go(n, m, depth + 1);
+                go(depth + 1);
                 visited[i] = false;
             }
         }
@@ -41,7 +41,7 @@ public class Main {
         arr = new int[m];
         visited = new boolean[n];
 
-        go(n, m, 0);
+        go(0);
 
         System.out.println(sb);
 
