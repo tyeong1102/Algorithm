@@ -6,10 +6,12 @@ import java.util.StringTokenizer;
 public class Main {
     public static int n, m;
     public static int[] arr;
+    public static boolean[] visited;
+
     public static StringBuilder sb = new StringBuilder();
 
     public static void go(int at, int depth) {
-        if (depth == m) {
+        if (m == depth) {
             for (int val : arr) {
                 sb.append(val).append(' ');
             }
@@ -19,7 +21,7 @@ public class Main {
 
         for (int i = at; i <= n; i++) {
             arr[depth] = i;
-            go(i,depth + 1);
+            go(i, depth + 1);
         }
     }
 
@@ -31,8 +33,9 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
 
         arr = new int[m];
+        visited = new boolean[n];
 
-        go(1,0);
+        go(1, 0);
 
         System.out.println(sb);
 
