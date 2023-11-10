@@ -4,12 +4,11 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    public static int n, m;
+    public static int[] arr;
+    public static boolean[] visited;
 
-    static int[] arr;
-    static boolean[] visited;
-    static int n, m;
-
-    static StringBuilder sb = new StringBuilder();
+    public static StringBuilder sb = new StringBuilder();
 
     public static void go(int at, int depth) {
         if (m == depth) {
@@ -34,8 +33,9 @@ public class Main {
         m = Integer.parseInt(st.nextToken());
 
         arr = new int[m];
+        visited = new boolean[n];
 
-        go(1,0);
+        go(1, 0);
 
         System.out.println(sb);
 
