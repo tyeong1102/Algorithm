@@ -34,6 +34,7 @@ public class Main {
                 ret[0] = arr[s];
                 ret[1] = arr[e];
             }
+            if(sum == 0) break;
             if (sum > 0) {
                 e--;
             } else {
