@@ -40,17 +40,13 @@ public class Main {
             int nx = x + dx[dir];
             int ny = y + dy[dir];
 
-            if (isRange(nx, ny) && !visit[map[nx][ny] - 'A']) {
-                visit[map[nx][ny] - 'A'] = true;
-                dfs(nx, ny, cnt + 1);
-                visit[map[nx][ny] - 'A'] = false;
+            if(nx >= 0 && nx < r && ny >= 0 && ny < c) {
+                if (!visit[map[nx][ny] - 'A']) {
+                    visit[map[nx][ny] - 'A'] = true;
+                    dfs(nx, ny, cnt + 1);
+                    visit[map[nx][ny] - 'A'] = false;
+                }
             }
         }
-    }
-
-    private static boolean isRange(int nr, int nc) {
-        if (0 <= nr && nr < r && 0 <= nc && nc < c)
-            return true;
-        return false;
     }
 }
