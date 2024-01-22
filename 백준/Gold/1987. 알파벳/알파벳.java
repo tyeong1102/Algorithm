@@ -1,34 +1,40 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 public class Main {
-    static int R, C, ans;
+    static int r, c, ret;
     static char[][] map;
     static boolean[] visit = new boolean[26];
     static int[] dr = { -1, 1, 0, 0 };
     static int[] dc = { 0, 0, -1, 1 };
 
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st = new StringTokenizer(br.readLine());
 
-        R = sc.nextInt();
-        C = sc.nextInt();
-        map = new char[R][C];
-        for (int i = 0; i < R; i++) {
-            String str = sc.next();
-            for (int j = 0; j < C; j++) {
+        r = Integer.parseInt(st.nextToken());
+        c = Integer.parseInt(st.nextToken());
+        map = new char[r][c];
+
+        for (int i = 0; i < r; i++) {
+            String str = br.readLine();
+            for (int j = 0; j < c; j++) {
                 map[i][j] = str.charAt(j);
             }
         }
-        ans = 0;
+        ret = 0;
+
         visit[map[0][0] - 'A'] = true;
         DFS(0, 0, 1);
-        System.out.println(ans);
+        System.out.println(ret);
     }
 
     private static void DFS(int i, int j, int cnt) {
-        if (ans < cnt)
-            ans = cnt;
-        else if (ans == 26)
+        if (ret < cnt)
+            ret = cnt;
+        else if (ret == 26)
             return;
         for (int dir = 0; dir < dr.length; dir++) {
             int nr = i + dr[dir];
@@ -44,7 +50,7 @@ public class Main {
     }
 
     private static boolean isRange(int nr, int nc) {
-        if (0 <= nr && nr < R && 0 <= nc && nc < C)
+        if (0 <= nr && nr < r && 0 <= nc && nc < c)
             return true;
         return false;
     }
