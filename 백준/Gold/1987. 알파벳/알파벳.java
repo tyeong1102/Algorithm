@@ -4,11 +4,11 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int r, c, ret;
-    static char[][] map;
-    static boolean[] visit = new boolean[26];
-    static int[] dr = { -1, 1, 0, 0 };
-    static int[] dc = { 0, 0, -1, 1 };
+    public static int r, c, ret;
+    public static char[][] map;
+    public static boolean[] visit = new boolean[26];
+    public static int[] dx = {1, 0, -1, 0};
+    public static int[] dy = {0, 1, 0, -1};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -27,26 +27,25 @@ public class Main {
         ret = 0;
 
         visit[map[0][0] - 'A'] = true;
-        DFS(0, 0, 1);
+        dfs(0, 0, 1);
         System.out.println(ret);
     }
 
-    private static void DFS(int i, int j, int cnt) {
+    private static void dfs(int x, int y, int cnt) {
         if (ret < cnt)
             ret = cnt;
         else if (ret == 26)
             return;
-        for (int dir = 0; dir < dr.length; dir++) {
-            int nr = i + dr[dir];
-            int nc = j + dc[dir];
+        for (int dir = 0; dir < dx.length; dir++) {
+            int nx = x + dx[dir];
+            int ny = y + dy[dir];
 
-            if (isRange(nr, nc) && !visit[map[nr][nc] - 'A']) {
-                visit[map[nr][nc] - 'A'] = true;
-                DFS(nr, nc, cnt + 1);
-                visit[map[nr][nc] - 'A'] = false;
+            if (isRange(nx, ny) && !visit[map[nx][ny] - 'A']) {
+                visit[map[nx][ny] - 'A'] = true;
+                dfs(nx, ny, cnt + 1);
+                visit[map[nx][ny] - 'A'] = false;
             }
         }
-
     }
 
     private static boolean isRange(int nr, int nc) {
