@@ -1,5 +1,5 @@
 import java.io.BufferedReader;
-import java.io.IOException;
+import java.io.FileInputStream;
 import java.io.InputStreamReader;
 
 class Solution {
@@ -10,15 +10,13 @@ class Solution {
     public static int[] dx = {0, 1, 0, -1};
     public static int[] dy = {1, 0, -1, 0};
 
-
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
+//        System.setIn(new FileInputStream("src/input.txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
-        for (int test_case = 1; test_case <= t; test_case++) {
-
+        for(int test_case = 1; test_case <= t; test_case++) {
             n = Integer.parseInt(br.readLine());
             arr = new int[n][n];
             visited = new boolean[n][n];
@@ -28,20 +26,19 @@ class Solution {
             int y = 0;
 
             for (int i = 1; i <= n * n; i++) {
-                arr[x][y] = i;
                 visited[x][y] = true;
+                arr[x][y] = i;
 
                 int nx = x + dx[dir];
                 int ny = y + dy[dir];
 
-                if (nx < 0 || nx >= n || ny < 0 || ny >= n || visited[nx][ny] == true) {
+                if (nx < 0 || nx >= n || ny < 0 || ny >= n || visited[nx][ny]) {
                     dir = (dir + 1) % 4;
                 }
 
                 x = x + dx[dir];
                 y = y + dy[dir];
             }
-
 
             System.out.println("#" + test_case );
             for (int i = 0; i < n; i++) {
@@ -51,6 +48,5 @@ class Solution {
                 System.out.println();
             }
         }
-
     }
 }
