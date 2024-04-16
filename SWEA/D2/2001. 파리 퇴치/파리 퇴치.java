@@ -1,12 +1,14 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
+import java.io.FileInputStream;
 
 class Solution {
     public static int n, m, t;
     public static int[][] arr;
 
     public static void main(String args[]) throws Exception {
+//        System.setIn(new FileInputStream("src/input (22).txt"));
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         t = Integer.parseInt(br.readLine());
@@ -26,7 +28,7 @@ class Solution {
                 }
             }
 
-            int ret = 0;
+            int ret = Integer.MIN_VALUE;
             for (int i = 0; i <= n - m; i++) {
                 for (int j = 0; j <= n - m; j++) {
                     int sum = 0;
@@ -35,9 +37,10 @@ class Solution {
                             sum += arr[i + x][j + y];
                         }
                     }
-                    ret = Math.max(sum, ret);
+                    ret = Math.max(ret, sum);
                 }
             }
+
             sb.append('#').append(test_case).append(' ').append(ret);
 
             System.out.println(sb);
