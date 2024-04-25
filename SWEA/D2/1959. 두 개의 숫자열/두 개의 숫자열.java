@@ -1,9 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
-import java.util.function.IntBinaryOperator;
 
 class Solution {
     public static int t, n, m;
@@ -20,32 +18,22 @@ class Solution {
 
             n = Integer.parseInt(st.nextToken());
             m = Integer.parseInt(st.nextToken());
-
             arr1 = new int[n];
             arr2 = new int[m];
 
             st = new StringTokenizer(br.readLine());
-            for (int i = 0; i < arr1.length; i++) {
+            for (int i = 0; i < n; i++) {
                 arr1[i] = Integer.parseInt(st.nextToken());
             }
 
             st = new StringTokenizer(br.readLine());
-            for (int i = 0; i < arr2.length; i++) {
+            for (int i = 0; i < m; i++) {
                 arr2[i] = Integer.parseInt(st.nextToken());
             }
 
             int ret = Integer.MIN_VALUE;
 
-            if (n < m) {
-                for (int i = 0; i <= m - n; i++) {
-                    int sum = 0;
-                    for (int j = 0; j < n; j++) {
-                        sum += arr1[j] * arr2[i + j];
-                    }
-
-                    ret = Math.max(ret, sum);
-                }
-            } else if (n > m) {
+            if (n > m) {
                 for (int i = 0; i <= n - m; i++) {
                     int sum = 0;
                     for (int j = 0; j < m; j++) {
@@ -54,12 +42,21 @@ class Solution {
 
                     ret = Math.max(ret, sum);
                 }
-            } else {
-                int sum = 0;
-                for (int i = 0; i < n; i++) {
-                    sum += arr1[i] * arr2[i];
+
+            } else if (n < m) {
+                for (int i = 0; i <= m - n; i++) {
+                    int sum = 0;
+                    for (int j = 0; j < n; j++) {
+                        sum += arr1[j] * arr2[i + j];
+                    }
+
+                    ret = Math.max(ret, sum);
                 }
-                ret = Math.max(ret, sum);
+            } else {
+                for (int i = 0; i < n; i++) {
+                    ret = 0;
+                    ret += arr1[i] * arr2[i];
+                }
             }
 
             System.out.println("#" + test_case + " " + ret);
