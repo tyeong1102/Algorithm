@@ -1,11 +1,10 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.StringTokenizer;
 
 class Solution {
-    public static int t;
+    public static int t, ret;
     public static int[][] arr;
 
     public static void main(String args[]) throws IOException {
@@ -14,11 +13,10 @@ class Solution {
 
         t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= t; test_case++) {
+        for (int test_case = 1; test_case <= t; test_case++) {
 
             arr = new int[10][10];
 
-            // 행렬 저장
             for (int i = 0; i < 9; i++) {
                 StringTokenizer st = new StringTokenizer(br.readLine());
                 for (int j = 0; j < 9; j++) {
@@ -26,15 +24,16 @@ class Solution {
                 }
             }
 
-            boolean flag = true; // 초기 상태는 true
+            boolean flag = true;
+
             for (int i = 0; i < 9; i++) {
                 int[] list = new int[10];
                 for (int j = 0; j < 9; j++) {
                     list[arr[i][j]]++;
                 }
 
-                for (int k = 1; k <= 9; k++) {
-                    if (list[k] == 0) {
+                for (int j = 1; j <= 9; j++) {
+                    if (list[j] == 0) {
                         flag = false;
                         break;
                     }
@@ -47,8 +46,8 @@ class Solution {
                     list[arr[j][i]]++;
                 }
 
-                for (int k = 1; k <= 9; k++) {
-                    if (list[k] == 0) {
+                for (int j = 1; j <= 9; j++) {
+                    if (list[j] == 0) {
                         flag = false;
                         break;
                     }
@@ -72,7 +71,6 @@ class Solution {
                 }
             }
 
-            int ret = 0;
             if (flag) {
                 ret = 1;
             } else {
@@ -80,10 +78,8 @@ class Solution {
             }
 
             sb.append('#').append(test_case).append(' ').append(ret).append('\n');
-
         }
 
         System.out.println(sb);
-
     }
 }
