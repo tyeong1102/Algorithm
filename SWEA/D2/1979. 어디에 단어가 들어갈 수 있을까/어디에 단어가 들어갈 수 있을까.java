@@ -4,9 +4,8 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Solution {
-    public static int t, n, k;
+    public static int t, n, k, cnt, ret;
     public static int[][] arr;
-
 
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -19,7 +18,7 @@ class Solution {
 
             n = Integer.parseInt(st.nextToken());
             k = Integer.parseInt(st.nextToken());
-            arr = new int[n + 1][n + 1];
+            arr = new int[n][n];
 
             for (int i = 0; i < n; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -28,13 +27,13 @@ class Solution {
                 }
             }
 
-            int ret = 0;
-            int cnt = 0;
+            ret = 0;
+
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    if (arr[i][j] == 1) {
+                    if(arr[i][j] == 1) {
                         cnt++;
-                    }else if (cnt > 0 && arr[i][j] == 0) {
+                    } else if (arr[i][j] == 0 && cnt > 0) {
                         if (cnt == k) {
                             ret++;
                         }
@@ -45,14 +44,13 @@ class Solution {
                     ret++;
                 }
                 cnt = 0;
-
             }
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
                     if (arr[j][i] == 1) {
                         cnt++;
-                    } else if (cnt > 0 && arr[j][i] == 0) {
+                    } else if (arr[j][i] == 0 && cnt > 0) {
                         if (cnt == k) {
                             ret++;
                         }
@@ -65,9 +63,9 @@ class Solution {
                 cnt = 0;
             }
 
-            sb.append('#').append(test_case).append(' ').append(ret).append('\n');
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
-        System.out.println(sb);
 
+        System.out.println(sb);
     }
 }
