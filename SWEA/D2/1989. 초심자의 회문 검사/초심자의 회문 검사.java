@@ -1,43 +1,38 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Base64;
 
 class Solution {
-    public static int t;
+    public static int t, ret;
 
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= t; test_case++) {
+        for (int test_case = 1; test_case <= t; test_case++) {
             String str = br.readLine();
+            int num = str.length() / 2;
+
             boolean flag = true;
 
-            int len = str.length();
-
-            if (len % 2 == 1) {
-                for (int i = 0; i < len / 2; i++) {
-                    if (str.charAt(i) != str.charAt(len - i - 1)) {
-                        flag = false;
-                    }
-                }
-            } else {
-                for (int i = 0; i < len / 2 - 1; i++) {
-                    if (str.charAt(i) != str.charAt(len - i - 1)) {
-                        flag = false;
-                    }
+            for (int i = 0; i < num; i++) {
+                if (str.charAt(i) != str.charAt(str.length() - 1 - i)) {
+                    flag = false;
+                    break;
                 }
             }
 
-            int ret = 0;
             if (flag) {
                 ret = 1;
             } else {
                 ret = 0;
             }
-            System.out.println("#" + test_case + " " + ret);
+
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
