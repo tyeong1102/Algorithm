@@ -9,11 +9,11 @@ class Solution {
 
     public static void main(String args[]) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
         for (int test_case = 1; test_case <= t; test_case++) {
-
             n = Integer.parseInt(br.readLine());
             arr = new int[n][n];
 
@@ -24,24 +24,28 @@ class Solution {
                 }
             }
 
-            System.out.println("#" + test_case);
+            sb.append("#").append(test_case).append("\n");
 
             for (int i = 0; i < n; i++) {
                 for (int j = 0; j < n; j++) {
-                    System.out.print(arr[n - j - 1][i]);
+                    sb.append(arr[n - j - 1][i]);
                 }
-                System.out.print(" ");
+                sb.append(" ");
 
                 for (int j = 0; j < n; j++) {
-                    System.out.print(arr[n - i - 1][n - j - 1]);
+                    sb.append(arr[n - i - 1][n - j - 1]);
                 }
-                System.out.print(" ");
+                sb.append(" ");
 
                 for (int j = 0; j < n; j++) {
-                    System.out.print(arr[j][n-i-1]);
+                    sb.append(arr[j][n - i - 1]);
                 }
-                System.out.println();
+                sb.append(" ");
+
+                sb.append("\n");
             }
         }
+
+        System.out.println(sb);
     }
 }
