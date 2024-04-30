@@ -23,7 +23,7 @@ class Solution {
             for (int i = 0; i < n; i++) {
                 Arrays.sort(arr);
 
-                if (arr[99] - arr[0] <= 1) {
+                if (arr[99] - arr[0] == 1) {
                     ret = 1;
                     return;
                 }
