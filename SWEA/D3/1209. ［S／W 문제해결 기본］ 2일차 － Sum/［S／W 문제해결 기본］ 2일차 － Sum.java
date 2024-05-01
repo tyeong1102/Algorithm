@@ -1,61 +1,61 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
-class Solution
-{
-    static int sum1, sum2, sum3, sum4;
+class Solution {
+    public static int ret, t;
+    public static int[][] arr;
 
-    public static void main(String args[]) throws Exception
-    {
-        Scanner sc = new Scanner(System.in);
+    public static void main(String args[]) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-        for(int test_case = 1; test_case <= 10; test_case++)
-        {
-            int[][] arr = new int[100][100];
-            int T = sc.nextInt();
+        for(int test_case = 1; test_case <= 10; test_case++) {
+            t = Integer.parseInt(br.readLine());
+            arr = new int[100][100];
 
             for (int i = 0; i < 100; i++) {
+                StringTokenizer st = new StringTokenizer(br.readLine());
                 for (int j = 0; j < 100; j++) {
-                    arr[i][j] = sc.nextInt();
+                    arr[i][j] = Integer.parseInt(st.nextToken());
                 }
             }
 
-            int max = 0;
+            ret = Integer.MIN_VALUE;
 
             for (int i = 0; i < 100; i++) {
-                sum1 = 0;
+                int rSum = 0;
+                int cSum = 0;
                 for (int j = 0; j < 100; j++) {
-                    sum1 += arr[i][j];
+                    rSum += arr[i][j];
+                    cSum += arr[j][i];
+                }
+                int max = 0;
+                if (rSum > cSum) {
+                    max = rSum;
+                } else {
+                    max = cSum;
                 }
 
-                max = Math.max(max, sum1);
+                ret = Math.max(ret, max);
             }
 
+            int cross1 = 0;
+            int cross2 = 0;
             for (int i = 0; i < 100; i++) {
-                sum2 = 0;
-                for (int j = 0; j < 100; j++) {
-                    sum2 += arr[j][i];
-                }
-
-                max = Math.max(max, sum2);
+                cross1 += arr[i][i];
             }
+            ret = Math.max(ret, cross1);
 
-            for (int i = 0; i < 100; i++) {
-                sum3 = 0;
-                sum3 += arr[i][i];
-            }
-
-            int a = 0;
             for (int i = 99; i >= 0; i--) {
-                sum4 = 0;
-                sum4+= arr[a][i];
-                a++;
+                cross2 += arr[99 - i][i];
             }
 
-            max = Math.max(max, sum3);
-            max = Math.max(max, sum4);
+            ret = Math.max(ret, cross2);
 
-            System.out.println("#" + T + " " + max);
-
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
