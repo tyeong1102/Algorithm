@@ -1,52 +1,63 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.StringTokenizer;
 
 class Solution {
-    public static int n, cnt;
-    public static int[][] arr;
+    public static int ret, n, num;
+    public static char[][] arr;
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         for(int test_case = 1; test_case <= 10; test_case++) {
-            arr = new int[8][8];
             n = Integer.parseInt(br.readLine());
-            cnt = 0;
+            arr = new char[8][8];
+            ret = 0;
 
             for (int i = 0; i < 8; i++) {
                 String str = br.readLine();
                 for (int j = 0; j < 8; j++) {
-                    arr[i][j] = str.charAt(j) - '0';
+                    arr[i][j] = str.charAt(j);
                 }
             }
 
-            for (int i = 0; i < arr.length; i++) {
-                for (int j = 0; j < arr.length - n + 1; j++) {
+            num = n / 2;
+
+            // 행 검사
+            for (int i = 0; i < 8; i++) {
+                for (int j = 0; j <= 8 - n; j++) {
                     boolean flag = true;
-                    for (int k = 0; k < n / 2; k++) {
+                    for (int k = 0; k <= num; k++) {
                         if (arr[i][j + k] != arr[i][j + n - k - 1]) {
                             flag = false;
                         }
                     }
-                    if(flag) cnt++;
+
+                    if (flag) {
+                        ret++;
+                    }
                 }
             }
-
-            for (int i = 0; i < arr.length - n + 1; i++) {
-                for (int j = 0; j < arr.length; j++) {
+            // 열 검사
+            for (int i = 0; i <= 8 - n; i++) {
+                for (int j = 0; j < 8; j++) {
                     boolean flag = true;
-                    for (int k = 0; k < n / 2; k++) {
+                    for (int k = 0; k <= num; k++) {
                         if (arr[i + k][j] != arr[i + n - k - 1][j]) {
                             flag = false;
                         }
                     }
-                    if(flag) cnt++;
+
+                    if (flag) {
+                        ret++;
+                    }
                 }
             }
-            System.out.println("#" + test_case + " " + cnt);
+
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
 
-
+        System.out.println(sb);
     }
 }
