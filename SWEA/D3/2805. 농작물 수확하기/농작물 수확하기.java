@@ -1,22 +1,21 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Scanner;
 import java.util.StringTokenizer;
 
-class Solution
-{
-    static int[][] arr;
+class Solution {
+    public static int t, n, ret;
+    public static int[][] arr;
 
-    public static void main(String args[]) throws Exception
-    {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
-        int T = Integer.parseInt(br.readLine());
+        t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= T; test_case++)
-        {
-            int n = Integer.parseInt(br.readLine());
+        for(int test_case = 1; test_case <= t; test_case++) {
+            n = Integer.parseInt(br.readLine());
             arr = new int[n][n];
+            ret = 0;
 
             for (int i = 0; i < n; i++) {
                 String str = br.readLine();
@@ -27,7 +26,6 @@ class Solution
 
             int s = n / 2;
             int e = n / 2;
-            int ret = 0;
 
             for (int i = 0; i < n / 2; i++) {
                 for (int j = s; j <= e; j++) {
@@ -45,7 +43,9 @@ class Solution
                 e--;
             }
 
-            System.out.println("#" + test_case + " " + ret);
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
