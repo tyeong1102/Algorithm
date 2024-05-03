@@ -1,5 +1,4 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
@@ -18,17 +17,17 @@ class Solution {
             return;
         }
 
-        go(idx + 1, score + arr[idx][0], cal + arr[idx][1]);
-
         go(idx + 1, score, cal);
+        go(idx + 1, score + arr[idx][0], cal + arr[idx][1]);
     }
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
-        for (int test_case = 1; test_case <= t; test_case++) {
+        for(int test_case = 1; test_case <= t; test_case++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
 
             n = Integer.parseInt(st.nextToken());
@@ -37,16 +36,16 @@ class Solution {
 
             for (int i = 0; i < n; i++) {
                 st = new StringTokenizer(br.readLine());
-
-                arr[i][0] = Integer.parseInt(st.nextToken()); // 점수
-                arr[i][1] = Integer.parseInt(st.nextToken()); // 칼로리
+                arr[i][0] = Integer.parseInt(st.nextToken());
+                arr[i][1] = Integer.parseInt(st.nextToken());
             }
 
             ret = 0;
-            go(0, 0, 0);
+            go(0,0, 0);
 
-            System.out.println("#" + test_case + " " + ret);
-
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
