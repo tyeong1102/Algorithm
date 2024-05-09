@@ -1,39 +1,42 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Solution {
-    public static int t, p, q, r, s, w;
-    public static boolean[] arr;
+    public static int t, p, q, r, s, w, ret;
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= t; test_case++) {
+        for (int test_case = 1; test_case <= t; test_case++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
 
-            p = Integer.parseInt(st.nextToken());
-            q = Integer.parseInt(st.nextToken());
-            r = Integer.parseInt(st.nextToken());
-            s = Integer.parseInt(st.nextToken());
-            w = Integer.parseInt(st.nextToken());
+            p = Integer.parseInt(st.nextToken()); // a사 리터 당 요금
+            q = Integer.parseInt(st.nextToken()); // b사 기본요금
+            r = Integer.parseInt(st.nextToken()); // b사 월간 기본 사용량
+            s = Integer.parseInt(st.nextToken()); // b사 사용량 초과 시 리터 당 요금
+            w = Integer.parseInt(st.nextToken()); // 사용한 양
 
-            int A = p * w;
-            int B = 0;
-            if(w >= r) {
-                B = (w - r) * s + q;
+            int aPay = p * w;
+            int bPay = 0;
+            if (w <= r) {
+                bPay = q;
             } else {
-                B = q;
+                bPay = (w - r) * s + q;
             }
 
+            if (aPay < bPay) {
+                ret = aPay;
+            } else {
+                ret = bPay;
+            }
 
-            int ret = Math.min(A,B);
-
-            System.out.println("#" + test_case + " " + ret);
-
+            sb.append("#").append(test_case).append(" ").append(Math.round(ret)).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
