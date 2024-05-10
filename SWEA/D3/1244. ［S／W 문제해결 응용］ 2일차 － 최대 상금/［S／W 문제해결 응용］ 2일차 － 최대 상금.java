@@ -3,29 +3,29 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Solution {
-    public static int t, n, max;
-    public static String str;
-    public static char[] arr;
+    public static int t, change, ret;
+    public static String[] arr;
 
-    public static void dfs(int start, int cnt) {
-        if (cnt == n) {
-            String ret = "";
-            for (char c : arr) {
-                ret += c;
+    public static void dfs(int s, int cnt) {
+        if (cnt == change) {
+            String str = "";
+            for (String st : arr) {
+                str += st;
             }
-            max = Math.max(max, Integer.parseInt(ret));
+
+            ret = Math.max(ret, Integer.parseInt(str));
             return;
         }
 
-        for(int i = start; i < arr.length; i++) {
-            for(int j = i + 1; j < arr.length; j++) {
-                // swap
-                char tmp = arr[i];
+        for (int i = s; i < arr.length; i++) {
+            for (int j = i + 1; j < arr.length; j++) {
+
+                String tmp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = tmp;
 
-                dfs(i, cnt + 1);	// 깊이 +1
-                // 다시 swap 해서 되돌림
+                dfs(i, cnt + 1);
+
                 tmp = arr[i];
                 arr[i] = arr[j];
                 arr[j] = tmp;
@@ -35,25 +35,26 @@ class Solution {
 
     public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= t; test_case++) {
+        for (int test_case = 1; test_case <= t; test_case++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
 
-            str = st.nextToken();
-            arr = str.toCharArray();
-            n = Integer.parseInt(st.nextToken());
+            arr = st.nextToken().split("");
+            change = Integer.parseInt(st.nextToken());
+            ret = 0;
 
-            max = 0;
-
-            if(arr.length < n) {	// swap 횟수가 자릿수보다 클 때
-                n = arr.length;	// 자릿수만큼만 옮겨도 전부 옮길 수 있음
+            if (arr.length < change) {
+                change = arr.length;
             }
 
             dfs(0, 0);
 
-            System.out.println("#" + test_case + " " + max);
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
