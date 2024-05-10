@@ -15,8 +15,7 @@ public class Main {
             int a = 0;
             int b = 0;
 
-            for (int i = 0; i < ret.length; i++) {
-                char c = ret[i];
+            for (char c : ret) {
                 if (c == 'a' || c == 'e' || c == 'i' || c == 'o' || c == 'u') {
                     a++;
                 } else {
