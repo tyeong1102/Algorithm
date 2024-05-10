@@ -9,8 +9,8 @@ public class Main {
     public static boolean[] visited;
     public static StringBuilder sb;
 
-    public static void go(int s, int depth) {
-        if (depth == 6) {
+    public static void go(int s, int cnt) {
+        if (cnt == 6) {
             for (int num : ret) {
                 sb.append(num).append(" ");
             }
@@ -21,8 +21,8 @@ public class Main {
         for (int i = s; i < k; i++) {
             if (!visited[i]) {
                 visited[i] = true;
-                ret[depth] = arr[i];
-                go(i, depth + 1);
+                ret[cnt] = arr[i];
+                go(i, cnt + 1);
                 visited[i] = false;
             }
         }
@@ -36,21 +36,23 @@ public class Main {
             sb = new StringBuilder();
 
             k = Integer.parseInt(st.nextToken());
+            arr = new int[k];
+            ret = new int[6];
+            visited = new boolean[k];
+
             if (k == 0) {
                 break;
             }
 
-            arr = new int[k];
             for (int i = 0; i < k; i++) {
                 arr[i] = Integer.parseInt(st.nextToken());
             }
-
-            ret = new int[6];
-            visited = new boolean[k];
 
             go(0, 0);
 
             System.out.println(sb);
         }
+
+
     }
 }
