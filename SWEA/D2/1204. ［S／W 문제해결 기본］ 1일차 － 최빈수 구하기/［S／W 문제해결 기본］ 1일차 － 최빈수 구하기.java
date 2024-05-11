@@ -1,40 +1,45 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.*;
 
 class Solution {
-    public static int t, num;
-    public static int[] arr;
+    public static int t, n, ret;
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= t; test_case++) {
-            StringBuilder sb = new StringBuilder();
-            num = Integer.parseInt(br.readLine());
-            arr = new int[101];
+        for (int test_case = 1; test_case <= t; test_case++) {
+            n = Integer.parseInt(br.readLine());
+
+            HashMap<Integer, Integer> map = new HashMap<>();
 
             StringTokenizer st = new StringTokenizer(br.readLine());
             for (int i = 0; i < 1000; i++) {
-                int score = Integer.parseInt(st.nextToken());
-                arr[score]++;
+                int num = Integer.parseInt(st.nextToken());
+                map.put(num, map.getOrDefault(num, 0) + 1);
             }
 
-            int ret = 0;
-            int max = 0;
-            for (int i = 100; i > 0; i--) {
-                if (arr[i] > max) {
-                    max = arr[i];
-                    ret = i;
+            ArrayList<Integer> list = new ArrayList<>(map.keySet());
+
+            list.sort(new Comparator<Integer>() {
+                @Override
+                public int compare(Integer o1, Integer o2) {
+                    if (map.get(o1) == map.get(o2)) {
+                        return o2 - o1;
+                    }
+                    return map.get(o2) - map.get(o1);
                 }
-            }
+            });
 
-            sb.append('#').append(num).append(' ').append(ret);
+            ret = list.get(0);
 
-            System.out.println(sb);
+            sb.append("#").append(test_case).append(" ").append(ret).append("\n");
+
         }
+
+        System.out.println(sb);
     }
 }
