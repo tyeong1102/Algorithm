@@ -12,7 +12,7 @@ class Solution {
 
         t = Integer.parseInt(br.readLine());
 
-        for(int test_case = 1; test_case <= t; test_case++) {
+        for (int test_case = 1; test_case <= t; test_case++) {
             n = Integer.parseInt(br.readLine());
             arr = new int[n][n];
             ret = 0;
@@ -44,6 +44,7 @@ class Solution {
             }
 
             sb.append("#").append(test_case).append(" ").append(ret).append("\n");
+
         }
 
         System.out.println(sb);
