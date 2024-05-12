@@ -1,13 +1,12 @@
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 class Solution {
-    public static int t, n, k, cnt, ret;
+    public static int t, n, k, ret;
     public static int[][] arr;
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String args[]) throws Exception {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringBuilder sb = new StringBuilder();
 
@@ -19,6 +18,7 @@ class Solution {
             n = Integer.parseInt(st.nextToken());
             k = Integer.parseInt(st.nextToken());
             arr = new int[n][n];
+            ret = 0;
 
             for (int i = 0; i < n; i++) {
                 st = new StringTokenizer(br.readLine());
@@ -27,26 +27,27 @@ class Solution {
                 }
             }
 
-            ret = 0;
-
             for (int i = 0; i < n; i++) {
+                int cnt = 0;
                 for (int j = 0; j < n; j++) {
-                    if(arr[i][j] == 1) {
+                    if (arr[i][j] == 1) {
                         cnt++;
                     } else if (arr[i][j] == 0 && cnt > 0) {
                         if (cnt == k) {
                             ret++;
                         }
+
                         cnt = 0;
                     }
                 }
+
                 if (cnt == k) {
                     ret++;
                 }
-                cnt = 0;
             }
 
             for (int i = 0; i < n; i++) {
+                int cnt = 0;
                 for (int j = 0; j < n; j++) {
                     if (arr[j][i] == 1) {
                         cnt++;
@@ -54,13 +55,14 @@ class Solution {
                         if (cnt == k) {
                             ret++;
                         }
+
                         cnt = 0;
                     }
                 }
+
                 if (cnt == k) {
                     ret++;
                 }
-                cnt = 0;
             }
 
             sb.append("#").append(test_case).append(" ").append(ret).append("\n");
