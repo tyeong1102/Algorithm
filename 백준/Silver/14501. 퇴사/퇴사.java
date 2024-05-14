@@ -4,40 +4,41 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int n;
-    public static int[] arr;
-    public static int[] arrT;
-    public static int[] arrP;
+    public static int n, ret;
+    public static int[][] arr;
+
+    public static void go(int idx, int sum) {
+        if (idx >= n) {
+            ret = Math.max(ret, sum);
+            return;
+        }
+
+        ret = Math.max(ret, sum);
+
+        go(idx + 1, sum);
+        if (idx + arr[idx][0] <= n) {
+            go(idx + arr[idx][0], sum + arr[idx][1]);
+        } else {
+            go(idx + arr[idx][0], sum);
+        }
+
+    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
-        arrT = new int[n + 2];
-        arrP = new int[n + 2];
+        arr = new int[n][2];
 
-        for (int i = 1; i <= n; i++) {
+        for (int i = 0; i < n; i++) {
             StringTokenizer st = new StringTokenizer(br.readLine());
 
-            arrT[i] = Integer.parseInt(st.nextToken());
-            arrP[i] = Integer.parseInt(st.nextToken());
+            arr[i][0] = Integer.parseInt(st.nextToken());
+            arr[i][1] = Integer.parseInt(st.nextToken());
         }
 
-        arr = new int[n + 2];
-        int max = 0;
+        go(0, 0);
 
-        for (int i = 1; i <= n + 1; i++) {
-            if (max < arr[i]) {
-                max = arr[i];
-            }
-
-            int day = i + arrT[i]; // 상담하고 나면 추가되는 날짜
-
-            if (day <= n + 1) {
-                arr[day] = Math.max(arr[day], max + arrP[i]); // 현재 날짜 금액 vs 현재 날짜까지 최대 + 현재
-            }
-        }
-
-        System.out.println(max);
+        System.out.println(ret);
     }
 }
