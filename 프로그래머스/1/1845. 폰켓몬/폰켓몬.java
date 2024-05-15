@@ -11,8 +11,10 @@ class Solution {
             map.put(num, map.getOrDefault(num, 0) + 1);
         }
         
-        if(map.size() > nums.length / 2) {
-            answer = nums.length / 2;
+        int choose = nums.length / 2;
+        
+        if(map.size() >= choose) {
+            answer = choose;
         } else {
             answer = map.size();
         }
