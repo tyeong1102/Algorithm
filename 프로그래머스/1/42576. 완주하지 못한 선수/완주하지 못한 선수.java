@@ -7,17 +7,19 @@ class Solution {
         
         HashMap<String, Integer> map = new HashMap<>();
         
-        for (String p : participant) {
-            map.put(p, map.getOrDefault(p, 0) + 1);
+        for(String str : participant) {
+            map.put(str, map.getOrDefault(str, 0) + 1);
         }
         
-        for(String c : completion) {
-            map.put(c, map.get(c) - 1);
+        for(String str : completion) {
+            map.put(str, map.get(str) - 1);
         }
         
-        for (String key : map.keySet()) {
-            if (map.get(key) != 0) {
-                answer = key;
+        ArrayList<String> list = new ArrayList<>(map.keySet());
+        
+        for(String name : list) {
+            if(map.get(name) >= 1) {
+                answer = name;
                 break;
             }
         }
