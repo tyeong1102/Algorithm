@@ -13,7 +13,7 @@ public class Main {
         arr = new int[n];
 
         s = 0;
-        e = 0;
+        e = 1;
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
