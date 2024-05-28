@@ -4,15 +4,16 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int n, ret;
-    public static int[] dist, price;
+    public static int n;
+    public static long ret;
+    public static long[] dist, price;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
-        price = new int[n];
-        dist = new int[n - 1];
+        price = new long[n];
+        dist = new long[n - 1];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n - 1; i++) {
@@ -24,7 +25,7 @@ public class Main {
             price[i] = Integer.parseInt(st.nextToken());
         }
 
-        int min = Integer.MAX_VALUE;
+        long min = Long.MAX_VALUE;
 
         for (int i = 0; i < n - 1; i++) {
             if (price[i] <= min) {
