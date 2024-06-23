@@ -27,13 +27,13 @@ public class Main {
                     int sum2 = 0;
 
                     for (int i = 0; i < o1.length(); i++) {
-                        if (Character.isDigit(o1.charAt(i))) {
+                        if (o1.charAt(i) >= '0' && o1.charAt(i) <= '9') {
                             sum1 += o1.charAt(i) - '0';
                         }
                     }
 
                     for (int i = 0; i < o2.length(); i++) {
-                        if (Character.isDigit(o2.charAt(i))) {
+                        if (o2.charAt(i) >= '0' && o2.charAt(i) <= '9') {
                             sum2 += o2.charAt(i) - '0';
                         }
                     }
