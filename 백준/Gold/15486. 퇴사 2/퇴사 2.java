@@ -24,20 +24,19 @@ public class Main {
         }
 
         arr = new int[n + 2];
-        int max = 0;
 
         for (int i = 1; i <= n + 1; i++) {
-            if (max < arr[i]) {
-                max = arr[i];
+            if (ret < arr[i]) {
+                ret = arr[i];
             }
 
             int day = i + arrT[i];
 
             if (day <= n + 1) {
-                arr[day] = Math.max(arr[day], max + arrP[i]);
+                arr[day] = Math.max(arr[day], ret + arrP[i]);
             }
         }
 
-        System.out.println(max);
+        System.out.println(ret);
     }
 }
