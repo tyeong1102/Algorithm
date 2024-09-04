@@ -4,12 +4,12 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    static int t, n, m, k;
-    static int[][] arr;
-    static boolean[][] visited;
+    public static int t, m, n, k, ret;
+    public static int[][] arr;
+    public static boolean[][] visited;
 
-    static int[] dx = {0, -1, 0, 1};
-    static int[] dy = {1, 0, -1, 0};
+    public static int[] dx = {1, 0, -1, 0};
+    public static int[] dy = {0, 1, 0, -1};
 
     public static void dfs(int x, int y) {
         visited[x][y] = true;
@@ -27,37 +27,40 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
 
         t = Integer.parseInt(br.readLine());
-        while(t-- > 0) {
-            st = new StringTokenizer(br.readLine());
+
+        while (t-- > 0) {
+            StringTokenizer st = new StringTokenizer(br.readLine());
+
             m = Integer.parseInt(st.nextToken());
             n = Integer.parseInt(st.nextToken());
             k = Integer.parseInt(st.nextToken());
+            arr = new int[n][m];
+            visited = new boolean[n][m];
 
-            arr = new int[n + 1][m + 1];
-            visited = new boolean[n + 1][m + 1];
+            ret = 0;
 
-            for(int i = 0; i < k; i++) {
+            for (int i = 0; i < k; i++) {
                 st = new StringTokenizer(br.readLine());
-                int y = Integer.parseInt(st.nextToken());
-                int x = Integer.parseInt(st.nextToken());
-
-                arr[x][y] = 1;
+                int b = Integer.parseInt(st.nextToken());
+                int a = Integer.parseInt(st.nextToken());
+                arr[a][b] = 1;
             }
 
-            int cnt = 0;
             for(int i = 0; i < n; i++) {
                 for(int j = 0; j < m; j++) {
                     if(arr[i][j] == 1 && !visited[i][j]) {
-                        cnt++;
+                        ret++;
                         dfs(i, j);
                     }
                 }
             }
 
-            System.out.println(cnt);
+            sb.append(ret).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
