@@ -1,5 +1,6 @@
+
+
 import java.util.*;
-import java.io.*;
 
 class Solution {
     public int solution(int cacheSize, String[] cities) {
