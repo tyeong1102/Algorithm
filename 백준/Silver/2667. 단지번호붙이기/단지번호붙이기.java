@@ -10,8 +10,8 @@ public class Main {
     static int n;
     static int area = 0;
 
-    static int[] dx = {0, -1, 0, 1};
-    static int[] dy = {1, 0, -1, 0};
+    static int[] dx = {1, 0, -1, 0};
+    static int[] dy = {0, 1, 0, -1};
 
     public static void dfs(int x, int y) {
         visited[x][y] = true;
@@ -30,7 +30,6 @@ public class Main {
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        String str;
 
         n = Integer.parseInt(br.readLine());
         arr = new int[n + 1][n + 1];
@@ -38,7 +37,7 @@ public class Main {
         aparts = new int[n * n];
 
         for(int i = 0; i < n; i++) {
-            str = br.readLine();
+            String str = br.readLine();
             for(int j = 0; j < n; j++) {
                 arr[i][j] = str.charAt(j) - '0';
             }
@@ -55,9 +54,15 @@ public class Main {
 
         Arrays.sort(aparts);
 
-        System.out.println(area);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(area).append("\n");
         for(int i = 0; i < aparts.length; i++) {
-            if(aparts[i] != 0) System.out.println(aparts[i]);
+            if(aparts[i] != 0) {
+                sb.append(aparts[i]).append("\n");
+            }
         }
+
+        System.out.println(sb);
     }
 }
