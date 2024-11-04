@@ -5,21 +5,22 @@ import java.util.Stack;
 
 public class Main {
     public static int n, ret;
+    public static String str;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
+        
+        for (int i = 0; i < n; i++) {
+            str = br.readLine();
 
-        while (n-- > 0) {
             Stack<Character> s = new Stack<>();
-            String str = br.readLine();
 
-            s.push(str.charAt(0));
+            for (int j = 0; j < str.length(); j++) {
+                char c = str.charAt(j);
 
-            for(int i = 1; i < str.length(); i++) {
-                char c = str.charAt(i);
-                if (!s.isEmpty() && c == s.peek()) {
+                if (!s.isEmpty() && s.peek() == c) {
                     s.pop();
                 } else {
                     s.push(c);
