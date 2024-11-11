@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int n, m;
+    public static int n, m, ret;
     public static int[][] arr;
     public static boolean[][] visited;
 
@@ -18,7 +18,7 @@ public class Main {
         q.add(new int[]{x, y});
         visited[x][y] = true;
 
-        while (!q.isEmpty()) {
+        while(!q.isEmpty()) {
             int[] now = q.poll();
             int cx = now[0];
             int cy = now[1];
@@ -43,8 +43,8 @@ public class Main {
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        arr = new int[n][m];
-        visited = new boolean[n][m];
+        arr = new int[n + 1][m + 1];
+        visited = new boolean[n + 1][m + 1];
 
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
@@ -55,6 +55,14 @@ public class Main {
 
         bfs(0, 0);
 
-        System.out.println(arr[n - 1][m - 1]);
+        if(arr[n - 1][m - 2] == 0) {
+            System.out.println(arr[n - 2][m - 1] + 1);
+        } else if (arr[n - 2][m - 1] == 0) {
+            System.out.println(arr[n - 1][m - 2] + 1);
+        } else {
+            ret = Math.min(arr[n - 1][m - 2], arr[n - 2][m - 1]);
+            System.out.println(ret + 1);
+        }
+
     }
 }
