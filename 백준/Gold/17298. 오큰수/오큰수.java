@@ -1,27 +1,28 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
-import java.util.StringTokenizer;
-import java.util.Stack;
+import java.io.InputStreamReader;
+import java.util.*;
 
 public class Main {
-    public static int n;
-    public static int[] arr;
+    public static int n, tmp;
+    public static Integer[] arr;
+    public static ArrayList<Integer> list;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        Stack<Integer> s = new Stack<>();
 
         n = Integer.parseInt(br.readLine());
-        arr = new int[n];
+        arr = new Integer[n];
+        list = new ArrayList<>();
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-
-        for(int i = 0; i < n; i++) {
+        for (int i = 0; i < n; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
-        for(int i = 0; i < n; i++) {
+        Stack<Integer> s = new Stack<>();
+
+        for (int i = 0; i < n; i++) {
 
             while(!s.isEmpty() && arr[s.peek()] < arr[i]) {
                 arr[s.pop()] = arr[i];
@@ -35,8 +36,9 @@ public class Main {
         }
 
         StringBuilder sb = new StringBuilder();
-        for(int i = 0; i < n; i++) {
-            sb.append(arr[i]).append(' ');
+
+        for (int num : arr) {
+            sb.append(num).append(" ");
         }
 
         System.out.println(sb);
