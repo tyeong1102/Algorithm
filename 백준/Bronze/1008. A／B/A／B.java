@@ -4,15 +4,18 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static double A, B;
+    public static int a, b;
+    public static double ret;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        A = Double.parseDouble(st.nextToken());
-        B = Double.parseDouble(st.nextToken());
+        a = Integer.parseInt(st.nextToken());
+        b = Integer.parseInt(st.nextToken());
 
-        System.out.println(A / B);
+        ret = (double) a / b;
+
+        System.out.println(ret);
     }
 }
