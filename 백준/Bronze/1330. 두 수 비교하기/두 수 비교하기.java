@@ -4,20 +4,20 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int A, B;
+    public static int a, b;
 
-    public static void main(String args[]) throws IOException {
+    public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        A = Integer.parseInt(st.nextToken());
-        B = Integer.parseInt(st.nextToken());
+        a = Integer.parseInt(st.nextToken());
+        b = Integer.parseInt(st.nextToken());
 
-        if(A > B) {
-            System.out.println(">");
-        } else if(A < B) {
-            System.out.println("<");
-        } else if(A == B) {
+        if (a > b) {
+            System.out.println('>');
+        } else if (a < b) {
+            System.out.println('<');
+        } else {
             System.out.println("==");
         }
     }
