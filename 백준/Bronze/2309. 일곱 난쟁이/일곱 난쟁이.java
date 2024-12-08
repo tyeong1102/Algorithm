@@ -4,11 +4,12 @@ import java.io.InputStreamReader;
 import java.util.Arrays;
 
 public class Main {
-    public static int sum, fake1, fake2;
+    public static int sum, ret, di, dj;
     public static int[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         arr = new int[9];
 
@@ -17,30 +18,25 @@ public class Main {
             sum += arr[i];
         }
 
-        Arrays.sort(arr);
-
         for (int i = 0; i < 9; i++) {
-            boolean flag = false;
             for (int j = i + 1; j < 9; j++) {
-                if (sum - arr[i] - arr[j] == 100) {
-                    fake1 = arr[i];
-                    fake2 = arr[j];
-                    flag = true;
-                    break;
+                ret = sum - arr[i] - arr[j];
+
+                if (ret == 100) {
+                    arr[i] = arr[j] = 0;
+
+                    Arrays.sort(arr);
+
+                    for (int k = 2; k < 9; k++) {
+                        sb.append(arr[k]).append("\n");
+                    }
+
+                    System.out.println(sb);
+                    return;
                 }
             }
-
-            if (flag) break;
         }
 
-        StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < 9; i++) {
-            if (arr[i] == fake1 || arr[i] == fake2) continue;
-
-            sb.append(arr[i]).append("\n");
-        }
-
-        System.out.println(sb);
     }
 }
