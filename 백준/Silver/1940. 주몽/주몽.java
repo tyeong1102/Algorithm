@@ -16,23 +16,25 @@ public class Main {
         arr = new int[n];
 
         StringTokenizer st = new StringTokenizer(br.readLine());
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < arr.length; i++) {
             arr[i] = Integer.parseInt(st.nextToken());
         }
 
         Arrays.sort(arr);
 
         int s = 0;
-        int e = n - 1;
+        int e = arr.length - 1;
 
         while (s < e) {
-            if (arr[s] + arr[e] > m) {
+            int sum = arr[s] + arr[e];
+
+            if(sum > m) {
                 e--;
-            } else if (arr[s] + arr[e] < m) {
+            } else if (sum < m) {
                 s++;
             } else {
                 ret++;
-                s++;
+                e--;
             }
         }
 
