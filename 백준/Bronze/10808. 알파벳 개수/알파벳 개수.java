@@ -3,24 +3,21 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    public static int[] arr = new int[26];
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
-
-        int[] arr = new int[26];
         String str = br.readLine();
 
-        for (int i = 0; i < str.length(); i++) {
-            int n = str.charAt(i) - 97;
-            arr[n]++;
+        for(int i = 0; i < str.length(); i++) {
+            arr[str.charAt(i) - 'a']++;
         }
 
-        for (int i : arr) {
-            sb.append(i).append(" ");
+        StringBuilder sb = new StringBuilder();
+        for (int num : arr) {
+            sb.append(num).append(" ");
         }
 
         System.out.println(sb);
-
     }
 }
