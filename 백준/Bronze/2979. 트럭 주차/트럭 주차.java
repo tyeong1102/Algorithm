@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int a, b, c, arrive, leave, ret;
+    public static int a, b, c, s, e, ret;
     public static int[] arr;
 
     public static void main(String[] args) throws IOException {
@@ -18,11 +18,9 @@ public class Main {
 
         for (int i = 0; i < 3; i++) {
             st = new StringTokenizer(br.readLine());
-
-            arrive = Integer.parseInt(st.nextToken());
-            leave = Integer.parseInt(st.nextToken());
-
-            for (int j = arrive; j < leave; j++) {
+            s = Integer.parseInt(st.nextToken());
+            e = Integer.parseInt(st.nextToken());
+            for (int j = s; j < e; j++) {
                 arr[j]++;
             }
         }
@@ -31,12 +29,13 @@ public class Main {
             if (arr[i] == 1) {
                 ret += a;
             } else if (arr[i] == 2) {
-                ret += (b * arr[i]);
+                ret += (b * 2);
             } else if (arr[i] == 3) {
-                ret += (c * arr[i]);
+                ret += (c * 3);
             }
         }
 
         System.out.println(ret);
+
     }
 }
