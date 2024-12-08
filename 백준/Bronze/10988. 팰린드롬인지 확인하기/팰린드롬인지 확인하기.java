@@ -3,23 +3,19 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    public static boolean flag = true;
+    public static char[] arr;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         String str = br.readLine();
-        boolean flag = true;
+        arr = str.toCharArray();
 
-        if (str.length() % 2 == 1) {
-            for (int i = 0; i <= str.length() / 2; i++) {
-                if (str.charAt(i) != str.charAt(str.length() - i - 1)) {
-                    flag = false;
-                }
-            }
-        } else {
-            for (int i = 0; i <= str.length() / 2 - 1; i++) {
-                if (str.charAt(i) != str.charAt(str.length() - i - 1)) {
-                    flag = false;
-                }
+        for (int i = 0; i < str.length() / 2; i++) {
+            if (arr[i] != arr[str.length() - 1 - i]) {
+                flag = false;
+                break;
             }
         }
 
@@ -28,6 +24,5 @@ public class Main {
         } else {
             System.out.println(0);
         }
-
     }
 }
