@@ -6,16 +6,6 @@ import java.util.StringTokenizer;
 
 public class Main {
     public static int n, m;
-    public static String[] arr;
-
-    public static boolean isInteger(String str) {
-        try {
-            Integer.parseInt(str);
-            return true;
-        } catch (NumberFormatException exception) {
-            return false;
-        }
-    }
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -23,23 +13,28 @@ public class Main {
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        arr = new String[n + 1];
 
-        HashMap<String, Integer> map = new HashMap<>();
+        HashMap<String, Integer> map1 = new HashMap<>();
+        HashMap<Integer, String> map2 = new HashMap<>();
 
         for (int i = 1; i <= n; i++) {
-            String name = br.readLine();
-            map.put(name, i);
-            arr[i] = name;
+            String str = br.readLine();
+            map1.put(str, i);
+            map2.put(i, str);
         }
+
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < m; i++) {
             String str = br.readLine();
-            if (isInteger(str)) {
-                System.out.println(arr[Integer.parseInt(str)]);
+
+            if (str.charAt(0) >= 'A' && str.charAt(0) <= 'Z') {
+                sb.append(map1.get(str)).append("\n");
             } else {
-                System.out.println(map.get(str));
+                sb.append(map2.get(Integer.parseInt(str))).append("\n");
             }
         }
+
+        System.out.println(sb);
     }
 }
