@@ -33,19 +33,20 @@ public class Main {
                     sb.append((char) (i + 'A'));
                 }
             }
+
             ret = sb.toString();
 
             String tmp = sb.reverse().toString();
 
-            sb = new StringBuilder();
-
             for (int i = 0; i < arr.length; i++) {
                 if (arr[i] % 2 == 1) {
-                    sb.append((char) (i + 'A'));
+                    ret += (char) (i + 'A');
+                    break;
                 }
             }
 
-            ret += sb + tmp;
+            ret += tmp;
+
             System.out.println(ret);
         }
     }
