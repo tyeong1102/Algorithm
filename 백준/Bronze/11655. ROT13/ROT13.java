@@ -4,39 +4,35 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static String str;
+    public static char[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         str = br.readLine();
+        arr = str.toCharArray();
 
         StringBuilder sb = new StringBuilder();
 
-        for (int i = 0; i < str.length(); i++) {
-            char c = str.charAt(i);
-
-            if (c >= 65 && c <= 90) {
-                if (c + 13 > 90) {
-                    c = (char) (c + 13 - 26);
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] >= 65 && arr[i] <= 90) {
+                if (arr[i] + 13 > 90) {
+                    arr[i] = (char) (arr[i] + 13 - 26);
                 } else {
-                    c += 13;
+                    arr[i] = (char) (arr[i] + 13);
                 }
-
-                sb.append(c);
-
-            } else if (c >= 97 && c <= 122) {
-                if (c + 13 > 122) {
-                    c = (char) (c + 13 - 26);
+            } else if(arr[i] >= 97 && arr[i] <= 122) {
+                if (arr[i] + 13 > 122) {
+                    arr[i] = (char) (arr[i] + 13 - 26);
                 } else {
-                    c += 13;
+                    arr[i] = (char) (arr[i] + 13);
                 }
-
-                sb.append(c);
-            } else {
-                sb.append(c);
             }
+
+            sb.append(arr[i]);
         }
 
         System.out.println(sb);
+
     }
 }
