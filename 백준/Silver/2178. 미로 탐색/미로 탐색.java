@@ -6,7 +6,7 @@ import java.util.Queue;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int n, m, ret;
+    public static int n, m;
     public static int[][] arr;
     public static boolean[][] visited;
 
@@ -26,12 +26,11 @@ public class Main {
             for (int i = 0; i < 4; i++) {
                 int nx = cx + dx[i];
                 int ny = cy + dy[i];
-
                 if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
                 if (!visited[nx][ny] && arr[nx][ny] == 1) {
                     q.add(new int[]{nx, ny});
-                    arr[nx][ny] = arr[cx][cy] + 1;
                     visited[nx][ny] = true;
+                    arr[nx][ny] = arr[cx][cy] + 1;
                 }
             }
         }
@@ -43,8 +42,8 @@ public class Main {
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        arr = new int[n + 1][m + 1];
-        visited = new boolean[n + 1][m + 1];
+        arr = new int[n][m];
+        visited = new boolean[n][m];
 
         for (int i = 0; i < n; i++) {
             String str = br.readLine();
@@ -55,14 +54,7 @@ public class Main {
 
         bfs(0, 0);
 
-        if(arr[n - 1][m - 2] == 0) {
-            System.out.println(arr[n - 2][m - 1] + 1);
-        } else if (arr[n - 2][m - 1] == 0) {
-            System.out.println(arr[n - 1][m - 2] + 1);
-        } else {
-            ret = Math.min(arr[n - 1][m - 2], arr[n - 2][m - 1]);
-            System.out.println(ret + 1);
-        }
+        System.out.println(arr[n - 1][m - 1]);
 
     }
 }
