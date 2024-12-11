@@ -3,25 +3,26 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.StringTokenizer;
 
 public class Main {
+    public static int m, n, k, x1, y1, x2, y2, area, cnt;
+    public static int[][] arr;
+    public static boolean[][] visited;
+    public static List<Integer> list = new ArrayList<>();
 
-    static int[][] arr;
-    static boolean[][] visited;
-    static int[] dx = {1, 0, -1, 0};
-    static int[] dy = {0, 1, 0, -1};
-    static int n, m, k, cnt;
+    public static int[] dx = {1, 0, -1, 0};
+    public static int[] dy = {0, 1, 0, -1};
 
-    static void dfs(int x, int y) {
+    public static void dfs(int x, int y) {
         visited[x][y] = true;
         cnt++;
 
         for (int i = 0; i < 4; i++) {
             int nx = x + dx[i];
             int ny = y + dy[i];
-
-            if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+            if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
             if (!visited[nx][ny] && arr[nx][ny] == 0) {
                 dfs(nx, ny);
             }
@@ -31,23 +32,20 @@ public class Main {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
-        StringBuilder sb = new StringBuilder();
-
-        ArrayList<Integer> list = new ArrayList<>();
 
         m = Integer.parseInt(st.nextToken());
         n = Integer.parseInt(st.nextToken());
         k = Integer.parseInt(st.nextToken());
-
-        arr = new int[n + 1][m + 1];
-        visited = new boolean[n + 1][m + 1];
+        arr = new int[n][m];
+        visited = new boolean[n][m];
 
         while (k-- > 0) {
             st = new StringTokenizer(br.readLine());
-            int x1 = Integer.parseInt(st.nextToken());
-            int y1 = Integer.parseInt(st.nextToken());
-            int x2 = Integer.parseInt(st.nextToken());
-            int y2 = Integer.parseInt(st.nextToken());
+
+            x1 = Integer.parseInt(st.nextToken());
+            y1 = Integer.parseInt(st.nextToken());
+            x2 = Integer.parseInt(st.nextToken());
+            y2 = Integer.parseInt(st.nextToken());
 
             for (int i = x1; i < x2; i++) {
                 for (int j = y1; j < y2; j++) {
@@ -58,20 +56,26 @@ public class Main {
 
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (arr[i][j] == 0 && !visited[i][j]) {
-                    cnt = 0;
+                if(arr[i][j] == 0 && !visited[i][j]) {
                     dfs(i, j);
+                    area++;
                     list.add(cnt);
+                    cnt = 0;
                 }
             }
         }
 
         Collections.sort(list);
 
-        System.out.println(list.size());
-        for (int i = 0; i < list.size(); i++) {
-            sb.append(list.get(i)).append(" ");
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(area).append("\n");
+
+        for (int num : list) {
+            sb.append(num).append(" ");
         }
+
         System.out.println(sb);
+
     }
 }
