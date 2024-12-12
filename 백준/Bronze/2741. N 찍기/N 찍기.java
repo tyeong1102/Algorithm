@@ -3,15 +3,18 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    public static int n;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int N = Integer.parseInt(br.readLine());
+        n = Integer.parseInt(br.readLine());
 
-        int i = 1;
-        while(i <= N) {
-            System.out.println(i);
-            i++;
+        StringBuilder sb = new StringBuilder();
+        for (int i = 1; i <= n; i++) {
+            sb.append(i).append("\n");
         }
+
+        System.out.println(sb);
     }
 }
