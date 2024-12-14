@@ -4,7 +4,7 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int n, m, k, s, e, ret;
+    public static int n, m, t, s, e, drop, ret;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -12,25 +12,23 @@ public class Main {
 
         n = Integer.parseInt(st.nextToken());
         m = Integer.parseInt(st.nextToken());
-        k = Integer.parseInt(br.readLine());
+        t = Integer.parseInt(br.readLine());
 
-        s = 0;
+        s = 1;
+        e = s + m - 1;
 
-        for (int i = 0; i < k; i++) {
-            int num = Integer.parseInt(br.readLine()) - 1;
-            e = s + m - 1;
+        for (int i = 0; i < t; i++) {
+            drop = Integer.parseInt(br.readLine());
 
-            if(num >= s && num <= e) {
-                continue;
-            } else {
-                if (e < num) {
-                    ret += num - e;
-                    s += num - e;
-                    e += num - e;
-                } else {
-                    ret += s - num;
-                    s -= s - num;
-                }
+            if (drop < s) {
+                ret += (s - drop);
+                e -= (s - drop);
+                s -= (s - drop);
+            } else if (drop > e) {
+                ret += (drop - e);
+                s = s + (drop - e);
+                e += (drop - e);
+
             }
         }
 
