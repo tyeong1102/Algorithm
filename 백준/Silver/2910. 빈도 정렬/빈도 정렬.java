@@ -1,10 +1,7 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.StringTokenizer;
+import java.util.*;
 
 public class Main {
     public static int n, c;
@@ -17,35 +14,40 @@ public class Main {
         c = Integer.parseInt(st.nextToken());
 
         HashMap<Integer, Integer> map = new HashMap<>();
-        ArrayList<Integer> list = new ArrayList<>();
-        ArrayList<Integer> tmp = new ArrayList<>();
+        List<Integer> list1 = new ArrayList<>();
 
         st = new StringTokenizer(br.readLine());
         for (int i = 0; i < n; i++) {
             int num = Integer.parseInt(st.nextToken());
-            list.add(num);
-            tmp.add(num);
+            map.put(num, map.getOrDefault(num, 0) + 1);
 
-            if (map.containsKey(num)) {
-                map.put(num, map.get(num) + 1);
-            } else {
-                map.put(num, 1);
+            if(!list1.contains(num)) {
+                list1.add(num);
             }
         }
 
-        Collections.sort(list, (o1, o2) -> {
-            if (map.get(o1) == map.get(o2)) {
-                return tmp.indexOf(o1) - tmp.indexOf(o2);
-            } else {
-                return Integer.compare(map.get(o2), map.get(o1));
+        List<Integer> list2 = new ArrayList<>(map.keySet());
+
+        Collections.sort(list2, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                if (map.get(o1) == map.get(o2)) {
+                    return list1.indexOf(o1) - list1.indexOf(o2);
+                }
+                return map.get(o2) - map.get(o1);
             }
         });
 
         StringBuilder sb = new StringBuilder();
-        for (int i = 0; i < n; i++) {
-            sb.append(list.get(i) + " ");
+
+        for (int num : list2) {
+            for (int i = 0; i < map.get(num); i++) {
+                sb.append(num).append(" ");
+            }
         }
 
         System.out.println(sb);
+
+
     }
 }
