@@ -1,30 +1,33 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.StringTokenizer;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
 
 public class Main {
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringTokenizer st;
 
-        int[] arr = new int[9];
+        HashMap<Integer, Integer> map = new HashMap<>();
 
-        for(int i = 0; i < 9; i++) {
-           arr[i] = Integer.parseInt(br.readLine());
+        for (int i = 1; i <= 9; i++) {
+            int num = Integer.parseInt(br.readLine());
+
+            map.put(num, i);
         }
 
-        int max = 0;
-        int idx = 0;
+        List<Integer> list = new ArrayList<>(map.keySet());
 
-        for(int i = 0; i < arr.length; i++) {
-            if(arr[i] > max) {
-                max = arr[i];
-                idx = i;
-            }
-        }
+        Collections.sort(list);
 
-        System.out.println(max);
-        System.out.println(idx + 1);
+        StringBuilder sb = new StringBuilder();
+
+        sb.append(list.get(list.size() - 1)).append("\n");
+        sb.append(map.get(list.get(list.size() - 1)));
+
+        System.out.println(sb);
     }
 }
