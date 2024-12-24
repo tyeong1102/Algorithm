@@ -4,38 +4,57 @@ import java.io.InputStreamReader;
 import java.util.Stack;
 
 public class Main {
+    public static String str;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
 
         while (true) {
-            Stack<Character> st = new Stack<>();
-            String str = br.readLine();
+            str = br.readLine();
 
             if (str.equals(".")) {
                 break;
             }
 
+            Stack<Character> s = new Stack<>();
+
+            boolean flag = true;
             for (int i = 0; i < str.length(); i++) {
-                char c = str.charAt(i);
                 if (str.charAt(i) == '(' || str.charAt(i) == '[') {
-                    st.push(str.charAt(i));
-                } else if (c == ')' || c == ']') {
-                    if (st.isEmpty() || (st.peek() == '(' && c == ']') || (st.peek() == '[' && c == ')')) {
-                        st.push(c);
+                    s.push(str.charAt(i));
+                } else if (str.charAt(i) == ')' || str.charAt(i) == ']') {
+                    if (s.isEmpty()) {
+                        flag = false;
                         break;
                     }
-                    st.pop();
+                }
+                
+                if (!s.isEmpty() && str.charAt(i) == ')') {
+                    if (s.peek() == '(') {
+                        s.pop();
+                    } else {
+                        flag = false;
+                        break;
+                    }
+                } else if (!s.isEmpty() && str.charAt(i) == ']') {
+                    if (s.peek() == '[') {
+                        s.pop();
+                    } else {
+                        flag = false;
+                        break;
+                    }
                 }
             }
 
-            if (st.isEmpty()) {
-                System.out.println("yes");
+            if (s.isEmpty() && flag) {
+                sb.append("yes").append("\n");
             } else {
-                System.out.println("no");
+                sb.append("no").append("\n");
             }
-
-
         }
+
+        System.out.println(sb);
+
     }
 }
