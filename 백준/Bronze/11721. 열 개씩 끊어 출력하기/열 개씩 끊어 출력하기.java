@@ -3,20 +3,25 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-    public static int a, b, c;
+    public static String str;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+
+        str = br.readLine();
+
+        int n = str.length() / 10;
+        int idx = 0;
+
         StringBuilder sb = new StringBuilder();
-
-        String str = br.readLine();
-
-        for (int i = 0; i < str.length(); i++) {
-            sb.append(str.charAt(i));
-            if (i % 10 == 9) {
-                sb.append("\n");
-            }
+        for (int i = 0; i < n; i++) {
+            sb.append(str.substring(idx, idx + 10)).append("\n");
+            idx += 10;
         }
+
+        n = str.length() % 10;
+
+        sb.append(str.substring(str.length() - n));
 
         System.out.println(sb);
     }
