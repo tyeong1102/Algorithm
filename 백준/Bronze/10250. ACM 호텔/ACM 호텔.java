@@ -1,29 +1,33 @@
 import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
+    public static int t, h, w, n;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
-        int T = Integer.parseInt(br.readLine());	// 테스트 케이스
+        StringBuilder sb =  new StringBuilder();
 
-        for (int i = 0; i < T; i++) {
-            StringTokenizer st = new StringTokenizer(br.readLine());
+        t = Integer.parseInt(br.readLine());
 
-            int H = Integer.parseInt(st.nextToken());
-            st.nextToken();	
-            int N = Integer.parseInt(st.nextToken());
+        while (t-- > 0) {
+            st = new StringTokenizer(br.readLine());
 
-            if (N % H == 0) {
-                sb.append((H * 100) + (N / H)).append('\n');
+            h = Integer.parseInt(st.nextToken());
+            w = Integer.parseInt(st.nextToken());
+            n = Integer.parseInt(st.nextToken());
 
+            if (n % h == 0) {
+                sb.append((h * 100) + (n / h)).append("\n");
             } else {
-                sb.append(((N % H) * 100) + ((N / H) + 1)).append('\n');
+                sb.append(((n % h) * 100) + ((n / h) + 1)).append("\n");
             }
         }
-        System.out.print(sb);
+
+        System.out.println(sb);
     }
 }
