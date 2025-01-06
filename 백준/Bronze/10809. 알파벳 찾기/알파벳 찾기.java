@@ -1,28 +1,29 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 public class Main {
+    public static int[] arr;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        int[] arr = new int[26];
 
-        for(int i = 0; i < arr.length; i++) {
-            arr[i] = -1;
-        }
+        String str = br.readLine();
+        arr = new int[26];
+        Arrays.fill(arr, -1);
 
-        String s = br.readLine();
-
-        for(int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-
-            if(arr[ch - 'a'] == -1) {	// arr 원소 값이 -1 인 경우에만 초기화
-                arr[ch - 'a'] = i;
+        for (int i = 0; i < str.length(); i++) {
+            if (arr[str.charAt(i) - 'a'] == -1) {
+                arr[str.charAt(i) - 'a'] = i;
             }
         }
 
-        for(int val : arr) {	// 배열 출력
-            System.out.print(val + " ");
+        StringBuilder sb = new StringBuilder();
+        for (int num : arr) {
+            sb.append(num).append(" ");
         }
+
+        System.out.println(sb);
     }
 }
