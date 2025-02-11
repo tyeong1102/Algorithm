@@ -19,7 +19,7 @@ public class Main {
             int nx = x + dx[i];
             int ny = y + dy[i];
 
-            if(nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
+            if (nx < 0 || nx >= n || ny < 0 || ny >= m) continue;
             if (!visited[nx][ny] && arr[nx][ny] == 1) {
                 dfs(nx, ny);
             }
@@ -42,18 +42,23 @@ public class Main {
             }
         }
 
+        ret = 0;
+        cnt = 0;
+
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < m; j++) {
-                if (arr[i][j] == 1 && !visited[i][j]) {
-                    area++;
+                if (!visited[i][j] && arr[i][j] == 1) {
                     dfs(i, j);
+                    area++;
                     ret = Math.max(ret, cnt);
                     cnt = 0;
                 }
             }
         }
 
-        System.out.println(area);
-        System.out.println(ret);
+        StringBuilder sb = new StringBuilder();
+        sb.append(area).append("\n").append(ret).append("\n");
+
+        System.out.println(sb);
     }
 }
