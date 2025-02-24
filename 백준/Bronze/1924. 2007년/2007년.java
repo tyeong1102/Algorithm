@@ -4,26 +4,26 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Main {
-    public static int x, y;
-    public static String[] day;
-    public static int[] month;
+    public static int n, m;
+    public static String[] day = {"SUN", "MON", "TUE", "WED", "THU", "FRI", "SAT"};
+    public static int[] date = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         StringTokenizer st = new StringTokenizer(br.readLine());
 
-        x = Integer.parseInt(st.nextToken());
-        y = Integer.parseInt(st.nextToken());
+        n = Integer.parseInt(st.nextToken());
+        m = Integer.parseInt(st.nextToken());
+        int sum = 0;
 
-        day = new String[]{"MON", "TUE", "WED", "THU", "FRI", "SAT", "SUN"};
-        month = new int[]{0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-        
-        int n = 0;
-        for (int i = 0; i < x; i++) {
-            n += month[i];
+        for (int i = 0; i < n - 1; i++) {
+            sum += date[i];
         }
-        n += y - 1;
 
-        System.out.print(day[n % 7]);
+        sum += m;
+
+        int tmp = sum % 7;
+
+        System.out.println(day[tmp]);
     }
 }
