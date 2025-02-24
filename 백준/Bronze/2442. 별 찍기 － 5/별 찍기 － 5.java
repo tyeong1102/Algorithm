@@ -3,20 +3,27 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
+    public static int n;
+
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
-        int n = Integer.parseInt(br.readLine());
+        n = Integer.parseInt(br.readLine());
+
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 1; i <= n; i++) {
-            StringBuilder sb = new StringBuilder();
-            for (int j = 1; j <= n - i; j++) {
+            for (int j = 0; j < n - i; j++) {
                 sb.append(" ");
             }
-            for (int k = 1; k <= 2 * i - 1; k++) {
+
+            for (int j = 0; j < 2 * i - 1; j++) {
                 sb.append("*");
             }
-            System.out.println(sb);
+
+            sb.append("\n");
         }
+
+        System.out.println(sb);
     }
 }
