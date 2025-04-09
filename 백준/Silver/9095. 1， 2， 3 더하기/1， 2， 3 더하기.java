@@ -4,26 +4,29 @@ import java.io.InputStreamReader;
 
 public class Main {
     public static int t, n;
-    public static int[] d;
+    public static int[] dp;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         t = Integer.parseInt(br.readLine());
+        dp = new int[11];
 
-        while (t-- > 0) {
-            n = Integer.parseInt(br.readLine());
-            d = new int[n + 2];
+        dp[0] = 1;
+        dp[1] = 1;
+        dp[2] = 2;
 
-            d[0] = 1;
-            d[1] = 1;
-            d[2] = 2;
-            for (int i = 3; i <= n; i++) {
-                d[i] = d[i - 1] + d[i - 2] + d[i - 3];
-            }
-
-            System.out.println(d[n]);
+        for (int i = 3; i < 11; i++) {
+            dp[i] = dp[i - 3] + dp[i - 2] + dp[i - 1];
         }
 
+        StringBuilder sb = new StringBuilder();
+        while (t-- > 0) {
+            n = Integer.parseInt(br.readLine());
+
+            sb.append(dp[n]).append("\n");
+        }
+
+        System.out.println(sb);
     }
 }
