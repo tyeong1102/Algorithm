@@ -1,34 +1,36 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class Main {
     public static int n;
-    public static long[] arr;
 
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 
         n = Integer.parseInt(br.readLine());
+        HashMap<Long, Integer> map = new HashMap<>();
 
-        HashMap<Long, Integer> cards = new HashMap<>();
-
-        int max = 0;
-        long x = 0;
         for (int i = 0; i < n; i++) {
-            long card = Long.parseLong(br.readLine());
+            long num = Long.parseLong(br.readLine());
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
 
-            cards.put(card, cards.getOrDefault(card, 0) + 1);
-
-            if (cards.get(card) > max) {
-                max = cards.get(card);
-                x = card;
-            } else if (cards.get(card) == max) {
-                x = Math.min(x, card);
+        int max = Integer.MIN_VALUE;
+        long num = 0;
+        for (long l : map.keySet()) {
+            if (map.get(l) > max) {
+                max = map.get(l);
+                num = l;
+            } else if (map.get(l) == max) {
+                num = Math.min(l, num);
             }
         }
 
-        System.out.println(x);
+        System.out.println(num);
     }
 }
